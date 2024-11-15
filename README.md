@@ -1,8 +1,29 @@
 # React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Hardware Stote Inventory - FFIG
 
-Currently, two official plugins are available:
+Este proyecto permite la gestión de inventario de una ferreteria.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Instalación
+
+Este proyecto es un proyecto WEb y sera desplegado en Vercel para poder comprobar su funcionamiento.
+
+## Uso
+
+El uso de este proyecto se hara através de local storage, para iniciar la sesión hay un
+usuario de prueba, aquí se deja el nombre de usuario y la contraseña, para el ingreso.
+
+Usuario:
+Contraseña:
+
+## Contribuciones
+
+Proyecto realizado por loa aprendices del SENA Centro de Comercio y Turismo de Armenia, Regional Quindío.
+
+David Ricardo Graffe Rodríguez
+Ficha: 2979724
+Joaquín H Jiménez Rosas
+Juan David Gallego López
+Ficha: 2879723
+
+CopyRight © 2024-2025
