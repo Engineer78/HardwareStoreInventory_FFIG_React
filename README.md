@@ -17,12 +17,12 @@ Contraseña:
 
 ## Contribuciones
 
-Proyecto realizado por loa aprendices del SENA Centro de Comercio y Turismo de Armenia, Regional Quindío.
+Proyecto realizado por loa aprendices del SENA Centro de Comercio y Turismo de Armenia, Regional Quindío.<br>
 
-David Ricardo Graffe Rodríguez
-Ficha: 2979724
-Joaquín H Jiménez Rosas
-Juan David Gallego López
-Ficha: 2879723
+David Ricardo Graffe Rodríguez<br>
+Ficha: 2979724<br>
+Joaquín H Jiménez Rosas<br>
+Juan David Gallego López<br>
+Ficha: 2879723<br>
 
 CopyRight © 2024-2025
