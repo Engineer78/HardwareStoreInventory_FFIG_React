@@ -1,9 +1,6 @@
 /* Estilos generales del header */
 .header {
   align-items: center;
-  background-color: #f2db36; /* Color amarillo */
-  /*border-bottom: 1px solid #000; /* Línea negra abajo */
-  box-sizing: border-box;
   color: #000; /* Color del texto */
   display: flex;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -61,10 +58,12 @@
   background-color: #fff;
   border: 1px solid #ccc;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  /*filter: alpha(opacity=50);*/
   list-style: none;
   margin: 0;
   padding: 0;
   position: absolute;
+  /*opacity: 0.5;*/
   right: 18px;
   top: calc(100% + 5px); /* Se coloca justo debajo del botón */
   width: 170px; /* Ancho del menú */
@@ -160,7 +159,7 @@
     font-weight: bolder;
     text-decoration: none;
   }
-  
+
   .dropdown-menu li a:hover {
     background-color: #565557;
     color: #ffffff;
@@ -237,7 +236,7 @@
     font-weight: bolder;
     text-decoration: none;
   }
-  
+
   .dropdown-menu li a:hover {
     background-color: #565557;
     color: #ffffff;
@@ -288,7 +287,7 @@
     font-weight: bolder;
     text-decoration: none;
   }
-  
+
   .dropdown-menu li a:hover {
     background-color: #565557;
     color: #ffffff;
