@@ -28,7 +28,7 @@ export function LoginForm() {
     <div className={styles["form-wrapper"]}>
       <form className={styles["login-form"]} onSubmit={handleLogin}>
         <h2>Inicio de sesión</h2>
-        <p>Por favor logearse para continuar.</p>
+        <p>Por favor loguearse para continuar.</p>
         
         <label htmlFor="username">Usuario</label>
         <input
