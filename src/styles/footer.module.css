@@ -1,0 +1,25 @@
+/* styles/footer.module.css */
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 10px; /* Puedes ajustar el tamaño según lo que prefieras */
+    background-color: #F2DB36; /* Color de fondo del footer, puedes modificarlo */
+    color: #000000; /* Color del texto, también puedes ajustarlo */
+    font-weight: bolder;
+  }
+  
+  .footer a {
+    color: #333; /* Color de los enlaces */
+    text-decoration: none;
+  }
+  
+  .footer a:hover {
+    text-decoration: underline; /* Subrayado cuando el enlace está en hover */
+  }
+  

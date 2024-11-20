@@ -9,7 +9,7 @@ body {
   align-items: center;
   box-sizing: border-box;
   display: flex;
-  height: calc(100vh - 100px); /* Resta la altura del header */
+  height: calc(100vh - 250px); /* Resta la altura del header */
   justify-content: center;
 }
 

@@ -1,11 +1,13 @@
-import { useState } from "react";
-import styles from "../styles/loginform.module.css"; // Importación de módulos CSS
-import "material-icons/iconfont/material-icons.css"; // Importar Material Icons 
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styles from '../styles/loginform.module.css';
+import "material-icons/iconfont/material-icons.css"; 
 
-export function LoginForm() {
+const LoginForm = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate(); 
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -14,11 +16,11 @@ export function LoginForm() {
   const handleLogin = (event) => {
     event.preventDefault();
 
-    // Obtén el usuario almacenado en localStorage
     const savedUser = JSON.parse(localStorage.getItem("user"));
 
     if (savedUser && username === savedUser.username && password === savedUser.password) {
       console.log("¡Inicio de sesión exitoso! Bienvenido:", username);
+      navigate('/menu-principal');
     } else {
       console.error("Nombre de usuario o contraseña incorrectos.");
     }
@@ -29,14 +31,14 @@ export function LoginForm() {
       <form className={styles["login-form"]} onSubmit={handleLogin}>
         <h2>Inicio de sesión</h2>
         <p>Por favor loguearse para continuar.</p>
-        
+
         <label htmlFor="username">Usuario</label>
         <input
           type="email"
           id="username"
           placeholder="jujo_systemsoft@gmail.com"
           value={username}
-          onChange={(e) => setUsername(e.target.value)} // Actualiza el estado del usuario
+          onChange={(e) => setUsername(e.target.value)} 
         />
 
         <label htmlFor="password">Contraseña</label>
@@ -46,7 +48,7 @@ export function LoginForm() {
             id="password"
             placeholder="Contraseña"
             value={password}
-            onChange={(e) => setPassword(e.target.value)} // Actualiza el estado de la contraseña
+            onChange={(e) => setPassword(e.target.value)} 
           />
           <span
             className={styles["toggle-password"]}
@@ -72,15 +74,6 @@ export function LoginForm() {
       </form>
     </div>
   );
-}
+};
 
-
-
-
-
-
-
-
-
-
-
+export default LoginForm;
