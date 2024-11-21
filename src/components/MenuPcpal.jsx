@@ -1,14 +1,15 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; // Importa useNavigate
 import Header from '../components/Header';
 import styles from '../styles/menupcpal.module.css';
 
 const MenuPcpal = () => {
+  const navigate = useNavigate(); // Inicializa el hook de navegación
   const storedUser = JSON.parse(localStorage.getItem('user')); // Obtener el usuario desde localStorage
   const isUserAllowed = storedUser && storedUser.username !== 'admin@gmail.com'; // Deshabilitar si es el usuario admin
 
   const handleLogout = () => {
     localStorage.removeItem('user'); // Elimina al usuario del localStorage al hacer logout
-    window.location.href = '/login'; // Redirige a la pantalla de login
+    navigate('/login'); // Navega a la pantalla de login sin recargar la página
   };
 
   return (
