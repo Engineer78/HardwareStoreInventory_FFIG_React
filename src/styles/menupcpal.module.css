@@ -1,172 +1,276 @@
 /* Estilos básicos */
 .menu-principal {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
-    background-color: #F2DB36; /* Color de fondo */
-    padding: 20px;
-    width: 80%;
-    max-width: 800px; /* Aumenta el max-width según tu necesidad */
-    margin-left: auto;
-    margin-right: auto;
-    position: relative; /* Para posicionar el botón de salir */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  background-color: #f2db36; /* Color de fondo */
+  padding: 20px;
+  width: 80%;
+  max-width: 800px; /* Aumenta el max-width según tu necesidad */
+  margin-left: auto;
+  margin-right: auto;
+  position: relative; /* Para posicionar el botón de salir */
+}
+
+.menu-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #000000; /* Color del texto */
+  text-align: center; /* Centra el texto del título */
+}
+
+.menu-options {
+  display: flex;
+  justify-content: space-between; /* Alinea las pestañas horizontalmente */
+  gap: 0.8px; /* Elimina el espacio entre los botones */
+  width: 100%;
+  max-width: 800px; /* Ajusta el max-width según tu necesidad */
+}
+
+.disabled {
+  pointer-events: none; /* Desactiva la interacción */
+  opacity: 0.5; /* Cambia la apariencia visual */
+  cursor: not-allowed; /* Muestra el cursor de "no permitido" */
+}
+
+.menu-button {
+  display: flex;
+  align-items: center; /* Centra verticalmente el texto y el ícono */
+  justify-content: center; /* Alinea el contenido al inicio */
+  gap: 10px; /* Espacio entre el ícono y el texto */
+  background-color: #333233;
+  color: white;
+  padding: 10px 20px;
+  flex: 1; /* Para que los botones ocupen el mismo espacio */
+  text-align: left;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s ease;
+  margin: 10px 0; /* Asegura separación vertical */
+  border-radius: 1px 25px 1px 1px;
+}
+
+.menu-button span {
+  margin-left: 10px; /* Espacio entre el texto y el icono */
+  font-size: 32px; /* Tamaño del icono */
+}
+
+.menu-button .material-icons {
+  font-size: 24px; /* Tamaño del ícono */
+  display: inline-flex; /* Centrado del ícono */
+  align-items: center; /* Centrado vertical */
+  justify-content: center; /* Centrado horizontal */
+  color: white; /* Color del ícono */
+}
+
+.menu-button:hover {
+  background-color: #565557;
+}
+
+.logout-button-container {
+  position: absolute; /* Posiciona el botón de salir */
+  bottom: -420px;
+  left: 978px;
+}
+
+.logout-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #565557; /* Color de fondo diferente para el botón de salir */
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s ease;
+  min-width: 150px; /* Ajustar la longitud mínima del botón */
+}
+
+.logout-button .material-icons {
+  margin-left: 8px; /* Mueve el ícono a la derecha del texto */
+}
+
+.logout-button:hover {
+  background-color: #333233; /* Color de fondo diferente en hover para el botón de salir */
+}
+
+/* Media Queries */
+
+/* Para resoluciones menores a 480px */
+@media (max-width: 480px) {
+  .menu-title {
+    font-size: 20px;
   }
-  
+
+  .menu-button {
+    width: 100%;
+    font-size: 16px;
+    padding: 10px;
+  }
+
+  .menu-options {
+    flex-direction: column; /* Cambia las pestañas a una columna en pantallas pequeñas */
+    gap: 10px;
+  }
+
+  .logout-button-container {
+    position: static; /* Desactiva el posicionamiento absoluto en pantallas pequeñas */
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .menu-button:first-child,
+  .menu-button:last-child {
+    border-radius: 5px; /* Ajusta los bordes en pantallas pequeñas */
+  }
+}
+
+/* Para resoluciones entre 481px y 600px */
+@media (min-width: 481px) and (max-width: 600px) {
+  .menu-title {
+    font-size: 22px;
+  }
+
+  .menu-button {
+    width: 100%;
+    font-size: 17px;
+  }
+
+  .menu-options {
+    flex-direction: column; /* Cambia las pestañas a una columna en pantallas medianas */
+    gap: 10px;
+  }
+
+  .logout-button-container {
+    position: static; /* Desactiva el posicionamiento absoluto en pantallas medianas */
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .menu-button:first-child,
+  .menu-button:last-child {
+    border-radius: 5px; /* Ajusta los bordes en pantallas medianas */
+  }
+}
+
+/* Para resoluciones entre 601px y 900px */
+@media (min-width: 601px) and (max-width: 900px) {
   .menu-title {
     font-size: 24px;
-    margin-bottom: 20px;
-    color: #000000; /* Color del texto */
-    text-align: center; /* Centra el texto del título */
   }
-  
-  .menu-options {
-    display: flex;
-    justify-content: space-between; /* Alinea las pestañas horizontalmente */
-    gap: 0.8px; /* Elimina el espacio entre los botones */
-    width: 100%;
-    max-width: 800px; /* Ajusta el max-width según tu necesidad */
-  }
-  
+
   .menu-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #333233;
-    color: white;
-    padding: 15px;
-    flex: 1; /* Permite que los botones ocupen el mismo espacio */
-    text-align: center;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
+    width: 100%;
     font-size: 18px;
-    transition: background-color 0.3s ease;
-    margin: 0; /* Asegurar que no haya márgenes entre botones */
-    border-radius: 1px 25px 1px 1px; /* Remover borde redondeado para pegar los botones */
   }
-  
-  .menu-button .material-icons {
-    margin-left: 8px; /* Mueve el ícono a la derecha del texto */
+
+  .menu-options {
+    flex-direction: row; /* Mantiene las pestañas alineadas horizontalmente */
+    gap: 0; /* Elimina el espacio entre los botones */
   }
-  
-  .menu-button:hover {
-    background-color: #565557;
-  }
-  
+
   .logout-button-container {
     position: absolute; /* Posiciona el botón de salir */
-    bottom: -420px;
-    left: 978px;
+    bottom: 20px;
+    right: 20px;
+    width: auto; /* Permitir que el botón de salir tenga tamaño automático */
   }
-  
-  .logout-button {
+}
+
+/* ------------------------ @Media Queries --------------------- */
+
+/* Para resoluciones menores a 480px */
+@media (max-width: 480px) {
+  .menu-title {
+    font-size: 20px;
+  }
+
+  .menu-button {
+    width: 100%;
+    font-size: 16px;
+    padding: 10px;
+  }
+
+  .menu-options {
+    flex-direction: column; /* Cambia las pestañas a una columna en pantallas pequeñas */
+    gap: 10px;
+  }
+
+  .logout-button-container {
+    position: static; /* Desactiva el posicionamiento absoluto en pantallas pequeñas */
+    margin-top: 20px;
+    width: 100%;
     display: flex;
-    align-items: center;
     justify-content: center;
-    background-color: #565557; /* Color de fondo diferente para el botón de salir */
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+  }
+
+  .menu-button:first-child,
+  .menu-button:last-child {
+    border-radius: 5px; /* Ajusta los bordes en pantallas pequeñas */
+  }
+}
+
+/* Para resoluciones entre 481px y 600px */
+@media (min-width: 481px) and (max-width: 600px) {
+  .menu-title {
+    font-size: 22px;
+  }
+
+  .menu-button {
+    width: 100%;
+    font-size: 17px;
+  }
+
+  .menu-options {
+    flex-direction: column; /* Cambia las pestañas a una columna en pantallas medianas */
+    gap: 10px;
+  }
+
+  .logout-button-container {
+    position: static; /* Desactiva el posicionamiento absoluto en pantallas medianas */
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .menu-button:first-child,
+  .menu-button:last-child {
+    border-radius: 5px; /* Ajusta los bordes en pantallas medianas */
+  }
+}
+
+/* Para resoluciones entre 601px y 900px */
+@media (min-width: 601px) and (max-width: 900px) {
+  .menu-title {
+    font-size: 24px;
+  }
+
+  .menu-button {
+    width: 100%;
     font-size: 18px;
-    transition: background-color 0.3s ease;
-    min-width: 150px; /* Ajustar la longitud mínima del botón */
   }
-  
-  .logout-button .material-icons {
-    margin-left: 8px; /* Mueve el ícono a la derecha del texto */
+
+  .menu-options {
+    flex-direction: row; /* Mantiene las pestañas alineadas horizontalmente */
+    gap: 0; /* Elimina el espacio entre los botones */
   }
-  
-  .logout-button:hover {
-    background-color: #333233; /* Color de fondo diferente en hover para el botón de salir */
+
+  .logout-button-container {
+    position: absolute; /* Posiciona el botón de salir */
+    bottom: 20px;
+    right: 20px;
+    width: auto; /* Permitir que el botón de salir tenga tamaño automático */
   }
-  
-  /* Media Queries */
-  
-  /* Para resoluciones menores a 480px */
-  @media (max-width: 480px) {
-    .menu-title {
-      font-size: 20px;
-    }
-  
-    .menu-button {
-      width: 100%;
-      font-size: 16px;
-      padding: 10px;
-    }
-  
-    .menu-options {
-      flex-direction: column; /* Cambia las pestañas a una columna en pantallas pequeñas */
-      gap: 10px;
-    }
-  
-    .logout-button-container {
-      position: static; /* Desactiva el posicionamiento absoluto en pantallas pequeñas */
-      margin-top: 20px;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-    }
-  
-    .menu-button:first-child, .menu-button:last-child {
-      border-radius: 5px; /* Ajusta los bordes en pantallas pequeñas */
-    }
-  }
-  
-  /* Para resoluciones entre 481px y 600px */
-  @media (min-width: 481px) and (max-width: 600px) {
-    .menu-title {
-      font-size: 22px;
-    }
-  
-    .menu-button {
-      width: 100%;
-      font-size: 17px;
-    }
-  
-    .menu-options {
-      flex-direction: column; /* Cambia las pestañas a una columna en pantallas medianas */
-      gap: 10px;
-    }
-  
-    .logout-button-container {
-      position: static; /* Desactiva el posicionamiento absoluto en pantallas medianas */
-      margin-top: 20px;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-    }
-  
-    .menu-button:first-child, .menu-button:last-child {
-      border-radius: 5px; /* Ajusta los bordes en pantallas medianas */
-    }
-  }
-  
-  /* Para resoluciones entre 601px y 900px */
-  @media (min-width: 601px) and (max-width: 900px) {
-    .menu-title {
-      font-size: 24px;
-    }
-  
-    .menu-button {
-      width: 100%;
-      font-size: 18px;
-    }
-  
-    .menu-options {
-      flex-direction: row; /* Mantiene las pestañas alineadas horizontalmente */
-      gap: 0; /* Elimina el espacio entre los botones */
-    }
-  
-    .logout-button-container {
-      position: absolute; /* Posiciona el botón de salir */
-      bottom: 20px;
-      right: 20px;
-      width: auto; /* Permitir que el botón de salir tenga tamaño automático */
-    }
-  }
-  
+}

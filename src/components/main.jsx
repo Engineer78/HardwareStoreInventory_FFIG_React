@@ -5,9 +5,10 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; // Us
 import Header from '../components/Header'; // Asegúrate de importar Header
 import LoginForm from '../components/LoginForm';
 import MenuPcpal from '../components/MenuPcpal';
-import Footer from './Footer';
+import Footer from '../components/Footer';
+//import InventoryRegistration from '../components/InventoryRegistration';
 // import UserRegistrationPage from './components/UserRegistrationPage';
-// import InventoryRegistrationPage from './components/InventoryRegistrationPage';
+
 
 // Inicializa el usuario predeterminado en localStorage
 const initializeDefaultUser = () => {
@@ -44,6 +45,10 @@ createRoot(document.getElementById('root')).render(
               <LoginForm />
             </>
           }
+        />
+        <Route
+          path="/menu-principal"
+          element={<MenuPcpal />} // Header específico está dentro de MenuPcpal
         />
         <Route
           path="/menu-principal"
