@@ -4,7 +4,7 @@ import styles from '../styles/footer.module.css';  // Ajusta la ruta al archivo 
 const Footer = () => {
   return (
     <footer className={styles.footer}>
-      <p>© 2024-2025 Hardware Store Inventory FFIG</p>
+      <p>Copyright © 2024-2025 Hardware Store Inventory FFIG</p>
       <p>ADSO 2879723 - SENA CCT de Armenia, Regional Quindío</p>
       <p>Designed and developed by: @JuDaJoSystemSoft</p>
     </footer>

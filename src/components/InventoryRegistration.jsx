@@ -230,9 +230,9 @@ const InventoryRegistration = () => {
         </div>
       </div>
 
-      <div className={styles.footer}>
+      {/* <div className={styles.footer}>
         © 2024 Hardware Store Inventory FFIG. Todos los derechos reservados.
-      </div>
+      </div> */}
     </>
   );
 };
