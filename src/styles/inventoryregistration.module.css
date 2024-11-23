@@ -1,47 +1,51 @@
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin: 0;
   display: flex;
   flex-direction: column;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
   min-height: 100vh;
 }
 
 /* Contenedor principal */
 .container {
-  padding: 30px 20px;
   color: #333;
-  max-width: 900px;
-  margin: 20px auto;
   flex: 1;
+  margin: 20px auto;
+  max-width: 900px;
+  padding: 30px 20px;
   padding-bottom: 80px; /* Añadir espacio inferior para que no quede oculto por el footer */
 }
 
 /* Título */
 .title {
-  text-align: left;
+  font-size: 1.1rem;
   margin-bottom: 20px;
-  margin-left: 5px;
-  font-size: 1.6rem;
+  margin-left: 20px;
+  text-align: left;  
 }
 
 /* Pestañas */
 .tabs {
   display: flex;
-  justify-content: space-around;
+  flex: 1;
+  justify-content: center;
   margin-bottom: 20px;
 }
 
 .tabButton {
-  padding: 10px 20px;
+  align-items: center;
+  background-color: #333233; /* Verde */
   border: none;
-  border-radius: 5px;
-  background-color: #4caf50; /* Verde */
+  border-radius: 1px 25px 1px 1px;
   color: white;
   cursor: pointer;
+  padding: 10px 20px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
 }
 
 .tabButton:hover {
-  background-color: #45a049; /* Verde oscuro */
+  background-color: #565557; /* Verde oscuro */
 }
 
 /* Contenedor del formulario */
@@ -53,34 +57,35 @@ body {
 
 /* Formularios independientes */
 .formLeft {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  flex: 1;
   display: flex;
+  flex: 1;
   flex-direction: column;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  
   gap: 15px;
   padding: 20px;
 }
 
 .formRight {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
   align-items: center; /* Centra los elementos dentro del wrapper */
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   gap: 15px;
   padding: 20px;
 }
 
 /* Labels para los inputs */
 .inputLabel {
+  /* background-color: #e9f1f4; */
   border-radius: 4px;
+  display: inline-block;
   font-size: 0.9rem;
   font-weight: bold;
-  padding: 2px 5px;
-  display: inline-block;
   margin-bottom: -5px;
   opacity: 0.7;
-  position: relative;
+  padding: 2px 5px;
+  position: relative; 
   top: 1px;
   z-index: 2;
 }
@@ -92,66 +97,71 @@ body {
   box-sizing: border-box;
   font-size: 0.8rem;
   height: 38px;
+  margin-top: -10px;
   padding: 0.5rem;
   width: 100%;
-  margin-top: -10px;
 }
 
 .input::placeholder {
-  font-style: italic;
   color: #999;
+  font-style: italic;
 }
 
 /* Label específico para la imagen */
 .imageLabel {
+  /* background-color: #e9f1f4; */
   border-radius: 4px;
+  display: inline-block;
   font-size: 0.9rem;
   font-weight: bold;
-  padding: 2px 5px;
-  display: inline-block;
-  opacity: 0.7;
-  position: relative;
-  top: -5px;
   left: -72px;
+  opacity: 0.7;
+  padding: 2px 5px;  
+  position: relative;
+  top: 0px;
   z-index: 2;
 }
 
 /* Botón personalizado para cargar imagen */
 .customFileInput {
-  display: inline-block;
+  align-items: center;
+  background-color: #565557;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  gap: 5px; /* Espacio entre el texto y el icono */
+  justify-content: center;
   margin-top: 10px;
   padding: 8px 15px;
-  cursor: pointer;
-  color: white;
-  background-color: #4caf50;
-  width: 270px; /* Ajusta el ancho según sea necesario */
-  border-radius: 5px;
   text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px; /* Espacio entre el texto y el icono */
+  vertical-align: middle; /* Alineación vertical */
+  width: 270px; /* Ajusta el ancho según sea necesario */
 }
 
 .fileInput {
   display: none;
 }
 
+.customFileInput:hover {
+  background-color: #333233
+}
+
 .fileInputLabel {
-  margin-top: 10px;
-  font-size: 0.9rem;
   display: block;
+  font-size: 0.9rem;
+  margin-top: 10px;
   text-align: center;
 }
 
 /* Contenedor reducido para imagen */
 .imageContainer {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
   padding: 15px;
   position: relative;
+  text-align: center;
 }
 
 .imageWrapper {
@@ -162,58 +172,67 @@ body {
 
 /* Contenedor de la imagen */
 .image {
-  width: 300px;
-  height: 400px;
+  align-items: center;
   background-color: #b8b323;
   border-radius: 5px;
-  margin-bottom: 10px;
   display: flex;
-  align-items: center;
+  height: 400px;
   justify-content: center;
+  margin-bottom: 10px;
+  margin-top: -15px;
   opacity: 0.6;
+  width: 300px;
 }
 
 /* Botones */
 .buttons {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-top: 5px;
-  margin-right: 70px;
   align-items: flex-end;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-right: 70px;
+  margin-top: 5px;
 }
 
 .button {
-  width: 120px; /* Ajusta el ancho según sea necesario */
-  height: 45px; /* Ajusta la altura según sea necesario */
-  padding: 8px 15px;
+  align-items: center;  /* Centrar verticalmente */
   border: none;
   border-radius: 5px;
   color: white;
   cursor: pointer;
+  display: flex;  /* Flex para alinear el texto y el icono */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 1rem;
-  text-align: center;
-  display: flex;  /* Flex para alinear el texto y el icono */
-  align-items: center;  /* Centrar verticalmente */
-  justify-content: center; /* Centrar horizontalmente */
   gap: 2px; /* Espacio entre el texto y el icono */
+  height: 45px; /* Ajusta la altura según sea necesario */
+  justify-content: center; /* Centrar horizontalmente */
+  padding: 8px 15px;
+  text-align: center;
+  width: 120px; /* Ajusta el ancho según sea necesario */
 }
 
 .button:nth-child(1) {
-  background-color: #4caf50; /* Verde */
+  background-color: #333233; /* Verde */
+}
+
+.button:nth-child(1):hover {
+  background-color: #565557;
 }
 
 .button:nth-child(2) {
-  background-color: #f44336; /* Rojo */
+  background-color: #333233; /* Rojo */
+}
+
+.button:nth-child(2):hover {
+  background-color: #565557;
 }
 
 .button:nth-child(3) {
-  background-color: #616161; /* Gris oscuro */
+  background-color: #565557; /* Gris oscuro */
 }
 
-.button:hover {
-  opacity: 0.9;
+.button:nth-child(3):hover {
+  background-color: #333233;
 }
 
 /* Iconos dentro de los botones */
@@ -223,11 +242,11 @@ body {
 
 /* Estilo del footer */
 .footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
   background-color: #333;
+  bottom: 0;
   color: white;
-  text-align: center;
   padding: 10px 0;
+  position: fixed;
+  text-align: center;
+  width: 100%;
 }
