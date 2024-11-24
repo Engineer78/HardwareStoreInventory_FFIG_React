@@ -1,3 +1,4 @@
+/* Estilo global para el cuerpo de la página */
 body {
   display: flex;
   flex-direction: column;
@@ -6,7 +7,7 @@ body {
   min-height: 100vh;
 }
 
-/* Contenedor principal */
+/* Contenedor principal donde se ubican los formularios y el contenido */
 .container {
   color: #333;
   flex: 1;
@@ -16,7 +17,7 @@ body {
   padding-bottom: 80px; /* Añadir espacio inferior para que no quede oculto por el footer */
 }
 
-/* Título */
+/* Estilo del título */
 .title {
   font-size: 1.1rem;
   margin-bottom: 20px;
@@ -24,7 +25,7 @@ body {
   text-align: left;  
 }
 
-/* Pestañas */
+/* Estilo para las pestañas de navegación */
 .tabs {
   display: flex;
   flex: 1;
@@ -32,9 +33,10 @@ body {
   margin-bottom: 20px;
 }
 
+/* Botón de pestaña con efectos */
 .tabButton {
   align-items: center;
-  background-color: #333233; /* Verde */
+  background-color: #333233; /* Color verde */
   border: none;
   border-radius: 1px 25px 1px 1px;
   color: white;
@@ -44,43 +46,45 @@ body {
   transition: background-color 0.3s ease;
 }
 
-.tabButton:hover {
-  background-color: #565557; /* Verde oscuro */
+.tabButton.active {
+  background-color: #565557; /* Color destacado para la pestaña activa */
+  color: white;
+  font-weight: bold;
 }
 
-/* Contenedor del formulario */
+.tabButton:hover {
+  background-color: #565557; /* Color verde oscuro al hacer hover */
+}
+
+/* Estilo del contenedor de los formularios */
 .formContainer {
   display: flex;
   gap: 20px;
   justify-content: space-between;
 }
 
-/* Formularios independientes */
+/* Estilos para el formulario de la izquierda */
 .formLeft {
   display: flex;
   flex: 1;
   flex-direction: column;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  
   gap: 15px;
   padding: 20px;
 }
 
+/* Estilos para el formulario de la derecha */
 .formRight {
-  align-items: center; /* Centra los elementos dentro del wrapper */
+  align-items: center; /* Centra los elementos dentro del contenedor */
   background-color: #F2DB36;
   display: flex;
   flex: 1;
   flex-direction: column;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   gap: 15px;
   padding: 20px;
 }
 
-/* Labels para los inputs */
+/* Estilo de los labels de los inputs */
 .inputLabel {
-  /* background-color: #e9f1f4; */
-  border-radius: 4px;
-  display: inline-block;
   font-size: 0.9rem;
   font-weight: bold;
   margin-bottom: -5px;
@@ -91,7 +95,7 @@ body {
   z-index: 2;
 }
 
-/* Inputs */
+/* Estilo de los inputs */
 .input {
   border: 1px solid #ccc;
   border-radius: 7px;
@@ -108,22 +112,24 @@ body {
   font-style: italic;
 }
 
-/* Label específico para la imagen */
+.inputValorTotal {
+  background-color: ghostwhite;
+  margin-top: -10px;
+}
+
+/* Estilo para la etiqueta de la imagen */
 .imageLabel {
-  /* background-color: #e9f1f4; */
-  border-radius: 4px;
-  display: inline-block;
   font-size: 0.9rem;
   font-weight: bold;
   left: -72px;
   opacity: 0.7;
-  padding: 2px 5px;  
+  padding: 2px 5px;
   position: relative;
   top: 0px;
   z-index: 2;
 }
 
-/* Botón personalizado para cargar imagen */
+/* Estilo para el botón de carga de imagen */
 .customFileInput {
   align-items: center;
   background-color: #565557;
@@ -145,17 +151,10 @@ body {
 }
 
 .customFileInput:hover {
-  background-color: #333233
+  background-color: #333233;
 }
 
-.fileInputLabel {
-  display: block;
-  font-size: 0.9rem;
-  margin-top: 10px;
-  text-align: center;
-}
-
-/* Contenedor reducido para imagen */
+/* Estilo para el contenedor de la imagen */
 .imageContainer {
   align-items: center;
   display: flex;
@@ -171,9 +170,8 @@ body {
   align-items: center;
 }
 
-/* Contenedor de la imagen */
+/* Estilo de la imagen */
 .image {
-  align-items: center;
   background-color: #b8b323;
   border-radius: 5px;
   display: flex;
@@ -185,7 +183,7 @@ body {
   width: 300px;
 }
 
-/* Botones */
+/* Estilo para el contenedor de los botones */
 .buttons {
   align-items: flex-end;
   display: flex;
@@ -195,6 +193,7 @@ body {
   margin-top: 5px;
 }
 
+/* Estilos generales para los botones */
 .button {
   align-items: center;  /* Centrar verticalmente */
   border: none;
@@ -212,33 +211,65 @@ body {
   width: 120px; /* Ajusta el ancho según sea necesario */
 }
 
+/* Estilos para el botón de Guardar */
 .button:nth-child(1) {
-  background-color: #333233; /* Verde */
+  background-color: #333233; /* Color principal */
 }
 
-.button:nth-child(1):hover {
-  background-color: #565557;
+/* .button:nth-child(1):hover {
+  background-color: #565557; Color de hover
+} */
+
+/* Estilo cuando el botón de Guardar está en foco (por ejemplo, después de hacer clic) */
+.button:nth-child(1):focus {
+  outline: none; /* Elimina el borde predeterminado del foco */
+  background-color: #333233; /* Vuelve al color principal */
 }
 
+/* Active: Efecto al presionar el botón */
+.button:nth-child(1):active {
+  background-color: #565557; /* Color al presionar */
+}
+
+/* Estilos para el botón de Limpiar */
 .button:nth-child(2) {
-  background-color: #333233; /* Rojo */
+  background-color: #333233; /* Color principal */
 }
 
-.button:nth-child(2):hover {
-  background-color: #565557;
+/* .button:nth-child(2):hover {
+  background-color: #565557; Color de hover
+} */
+
+.button:nth-child(2):focus {
+  outline: none;
+  background-color: #333233; /* Vuelve al color principal */
 }
 
+/* Active: Efecto al presionar el botón */
+.button:nth-child(2):active {
+  background-color: #565557; /* Color al presionar */
+}
+
+/* Estilos para el botón de Salir */
 .button:nth-child(3) {
-  background-color: #565557; /* Gris oscuro */
+  background-color: #565557; /* Color principal */
 }
 
-.button:nth-child(3):hover {
-  background-color: #333233;
+/* .button:nth-child(3):hover {
+  background-color: #333233; Color de hover
+} */
+
+.button:nth-child(3):focus {
+  outline: none;
+  background-color: #565557; /* Vuelve al color principal */
 }
 
-/* Iconos dentro de los botones */
+/* Active: Efecto al presionar el botón */
+.button:nth-child(3):active {
+  background-color: #333233; /* Color al presionar */
+}
+
+/* Estilos para los iconos dentro de los botones */
 .button svg {
   margin-left: 0; /* Ajusta el margen si es necesario */
 }
-
-
