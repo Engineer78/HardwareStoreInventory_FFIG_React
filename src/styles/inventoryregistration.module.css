@@ -113,7 +113,10 @@ body {
 }
 
 .inputValorTotal {
-  background-color: ghostwhite;
+  background-color: rgb(238, 238, 238);
+  color: black;
+  font-style: italic;
+  /* font-weight: bolder; */
   margin-top: -10px;
 }
 
