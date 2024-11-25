@@ -1,15 +1,15 @@
-import '../styles/index.css'; // Ajustar la ruta si es necesario
+import '../styles/index.css'; // Asegúrate de que la ruta del archivo CSS sea correcta
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Usar Routes en lugar de Switch en Vite
-import Header from '../components/Header'; // Asegúrate de importar Header
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Usamos Routes en lugar de Switch
+import Header from '../components/Header'; // Header se importa correctamente
 import LoginForm from '../components/LoginForm';
 import MenuPcpal from '../components/MenuPcpal';
 import Footer from '../components/Footer';
-import InventoryRegistration from '../components/InventoryRegistration'; // Asegúrate de importar el nuevo componente
-import MerchandiseQuery from '../components/MerchandiseQuery';
+import InventoryRegistration from '../components/InventoryRegistration'; // Componente de registro de inventario
+import MerchandiseQuery from '../components/MerchandiseQuery'; // Componente de consulta de mercancía
 
-// Inicializa el usuario predeterminado en localStorage
+// Inicializa un usuario predeterminado en el localStorage
 const initializeDefaultUser = () => {
   const defaultUser = { username: 'admin@gmail.com', password: '12345' };
 
@@ -49,7 +49,7 @@ createRoot(document.getElementById('root')).render(
         {/* Ruta para el menú principal */}
         <Route
           path="/menu-principal"
-          element={<MenuPcpal />} // Header específico está dentro de MenuPcpal
+          element={<MenuPcpal />} // Aquí el Header está dentro de MenuPcpal, así que no es necesario incluirlo aquí
         />
 
         {/* Ruta para el registro de inventario */}
@@ -57,8 +57,12 @@ createRoot(document.getElementById('root')).render(
           path="/inventory-registration"
           element={<InventoryRegistration />} // Componente de registro de inventario
         />
-        <Route path="/merchandise-query"
-          element={<MerchandiseQuery />} />
+
+        {/* Ruta para la consulta de mercancía */}
+        <Route
+          path="/merchandise-query"
+          element={<MerchandiseQuery />} // Componente de consulta de mercancía
+        />
       </Routes>
     </Router>
 

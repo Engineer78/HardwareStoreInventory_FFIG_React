@@ -1,31 +1,21 @@
 import { useState } from "react";
-import Header from "./Header";
-import styles from "../styles/inventoryregistration.module.css";
-import IosShareIcon from "@mui/icons-material/IosShare";
-import PrintIcon from "@mui/icons-material/Print";
-import SearchIcon from "@mui/icons-material/Search";
-import CleaningServicesIcon from "@mui/icons-material/CleaningServices";
-import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import Header from "./Header"; // Asegúrate de que Header está funcionando correctamente.
+import styles from "../styles/merchandisequery.module.css"; // Verifica la ruta correcta.
+import { Link } from 'react-router-dom';
 
 const MerchandiseQuery = () => {
-  const [searchData, setSearchData] = useState({
-    code: "",
-    category: "",
-    productName: "",
-    unitValue: "",
-    totalValue: "",
-    provider: "",
-    nit: "",
-  });
+  // Paso 1: Definir el estado 'activeTab' para manejar la pestaña activa
+  const [activeTab, setActiveTab] = useState("registro"); // Valor inicial es 'registro'
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setSearchData({ ...searchData, [name]: value });
+  // Paso 2: Definir la función 'handleTabClick' para actualizar el estado
+  const handleTabClick = (tab) => {
+    setActiveTab(tab); // Actualiza el estado 'activeTab' con el valor de la pestaña seleccionada
   };
 
+  // Contenido principal del componente
   return (
-    <>
-      {/* Header para la consulta de mercancía */}
+    <div className={styles.container}>
+      {/* Header del módulo */}
       <Header
         title="Módulo de consulta de mercancía"
         subtitle="Hardware Store Inventory FFIG"
@@ -33,152 +23,112 @@ const MerchandiseQuery = () => {
         showHelp={true}
       />
 
-      {/* Barra de pestañas */}
+      {/* Pestañas debajo del header */}
       <div className={styles.tabs}>
-        <button className={`${styles.tabButton} ${styles.active}`}>
+        {/* Enlace para "Registro de Mercancía" */}
+        <Link
+          to="/inventory-registration"
+          className={`${styles.tabButton} ${activeTab === "registro" ? styles.active : ""}`}
+          onClick={() => handleTabClick("registro")} // Llamamos a 'handleTabClick' con el valor 'registro'
+        >
+          Registro de Mercancía
+        </Link>
+
+        {/* Enlace para "Consulta de Mercancía" */}
+        <Link
+          to="/merchandise-query"
+          className={`${styles.tabButton} ${activeTab === "consulta" ? styles.active : ""}`}
+          onClick={() => handleTabClick("consulta")} // Llamamos a 'handleTabClick' con el valor 'consulta'
+        >
           Consulta de Mercancía
-        </button>
+        </Link>
+
+        {/* Enlace para "Actualizar Mercancía" */}
+        <Link
+          to="/actualizar"
+          className={`${styles.tabButton} ${activeTab === "actualizar" ? styles.active : ""}`}
+          onClick={() => handleTabClick("actualizar")} // Llamamos a 'handleTabClick' con el valor 'actualizar'
+        >
+          Actualizar Mercancía
+        </Link>
+
+        {/* Enlace para "Eliminar Mercancía" */}
+        <Link
+          to="/eliminar"
+          className={`${styles.tabButton} ${activeTab === "eliminar" ? styles.active : ""}`}
+          onClick={() => handleTabClick("eliminar")} // Llamamos a 'handleTabClick' con el valor 'eliminar'
+        >
+          Eliminar Mercancía
+        </Link>
       </div>
 
-      {/* Instrucción */}
-      <h2 className={styles.title}>
-        Ingrese un dato en la casilla correspondiente para realizar la consulta
-      </h2>
+      {/* Contenedor principal del contenido */}
+      <div className={styles.content}>
+        {/* Texto de instrucciones */}
+        <p className={styles.instruction}>
+          Ingrese un dato en la casilla correspondiente para realizar la consulta
+        </p>
 
-      {/* Tabla de búsqueda */}
-      <div className={styles.container}>
-        <table className={styles.table}>
-          <thead>
-            <tr>
-              <th>Selección</th>
-              <th>Código</th>
-              <th>Categoría</th>
-              <th>Nombre del producto</th>
-              <th>Existencias</th>
-              <th>Valor unitario</th>
-              <th>Valor total producto</th>
-              <th>Proveedor</th>
-              <th>NIT</th>
-              <th>Imagen</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <input type="checkbox" />
-              </td>
-              <td>
-                <input
-                  type="text"
-                  name="code"
-                  value={searchData.code}
-                  onChange={handleInputChange}
-                  placeholder="Buscar por código"
-                  className={styles.input}
-                />
-              </td>
-              <td>
-                <input
-                  type="text"
-                  name="category"
-                  value={searchData.category}
-                  onChange={handleInputChange}
-                  placeholder="Buscar por categoría"
-                  className={styles.input}
-                />
-              </td>
-              <td>
-                <input
-                  type="text"
-                  name="productName"
-                  value={searchData.productName}
-                  onChange={handleInputChange}
-                  placeholder="Buscar por nombre"
-                  className={styles.input}
-                />
-              </td>
-              <td>
-                <input
-                  type="number"
-                  placeholder="Existencias"
-                  disabled
-                  className={styles.inputValorTotal}
-                />
-              </td>
-              <td>
-                <input
-                  type="text"
-                  name="unitValue"
-                  value={searchData.unitValue}
-                  onChange={handleInputChange}
-                  placeholder="Buscar por precio unitario"
-                  className={styles.input}
-                />
-              </td>
-              <td>
-                <input
-                  type="text"
-                  name="totalValue"
-                  value={searchData.totalValue}
-                  onChange={handleInputChange}
-                  placeholder="Buscar por valor total"
-                  className={styles.input}
-                />
-              </td>
-              <td>
-                <input
-                  type="text"
-                  name="provider"
-                  value={searchData.provider}
-                  onChange={handleInputChange}
-                  placeholder="Buscar por proveedor"
-                  className={styles.input}
-                />
-              </td>
-              <td>
-                <input
-                  type="text"
-                  name="nit"
-                  value={searchData.nit}
-                  onChange={handleInputChange}
-                  placeholder="Buscar por NIT"
-                  className={styles.input}
-                />
-              </td>
-              <td>
-                <span>imagen.png</span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      {/* Botones inferiores */}
-      <div className={styles.buttonsContainer}>
-        <div className={styles.leftButtons}>
-          <button className={styles.button}>
-            Exportar <IosShareIcon style={{ marginLeft: 8 }} />
-          </button>
-          <button className={styles.button}>
-            Imprimir <PrintIcon style={{ marginLeft: 8 }} />
-          </button>
+        {/* Tabla de inventario */}
+        <div className={styles.tableContainer}>
+          <table className={styles.inventoryTable}>
+            <thead>
+              <tr>
+                <th>Selección</th>
+                <th>Código</th>
+                <th>Categoría</th>
+                <th>Nombre del producto</th>
+                <th>Existencias</th>
+                <th>Valor U x producto</th>
+                <th>Valor total producto</th>
+                <th>Proveedor</th>
+                <th>NIT Proveedor</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <input type="checkbox" />
+                </td>
+                <td>21</td>
+                <td>Alum...</td>
+                <td>Teja ajover 3 mts</td>
+                <td>
+                  <input type="text" value="3" />
+                </td>
+                <td>$84.900</td>
+                <td>$254.700</td>
+                <td>AJOVER</td>
+                <td>12345678-01</td>
+              </tr>
+              {/* Agrega más filas aquí según sea necesario */}
+            </tbody>
+          </table>
         </div>
-        <div className={styles.rightButtons}>
-          <button className={styles.button}>
-            Buscar <SearchIcon style={{ marginLeft: 8 }} />
+
+        {/* Botones de acción */}
+        <div className={styles.buttonsContainer}>
+          <button className={`${styles.button} ${styles.exportButton}`}>
+            Exportar
           </button>
-          <button className={styles.button}>
-            Limpiar <CleaningServicesIcon style={{ marginLeft: 8 }} />
+          <button className={`${styles.button} ${styles.printButton}`}>
+            Imprimir
           </button>
-          <button
-            className={styles.button}
-            onClick={() => (window.location.href = "/menu-principal")}
-          >
-            Salir <ExitToAppIcon style={{ marginLeft: 8 }} />
-          </button>
+          <div className={styles.actionButtons}>
+            <button className={`${styles.button} ${styles.searchButton}`}>
+              Buscar
+            </button>
+            <button className={`${styles.button} ${styles.clearButton}`}>
+              Limpiar
+            </button>
+            <button className={`${styles.button} ${styles.exitButton}`}>
+              Salir
+            </button>
+          </div>
         </div>
       </div>
-    </>
+      <p>Este es un texto de prueba para verificar el renderizado.</p>
+    </div>
   );
 };
 

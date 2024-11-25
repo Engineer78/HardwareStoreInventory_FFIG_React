@@ -5,6 +5,10 @@ import SaveIcon from '@mui/icons-material/Save';
 import CleaningServicesIcon from '@mui/icons-material/CleaningServices';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import UploadFileIcon from '@mui/icons-material/UploadFile'; // Importar el icono de cargar
+// import { Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
+
 
 const InventoryRegistration = () => {
   const [supplierName, setSupplierName] = useState("");
@@ -46,14 +50,14 @@ const InventoryRegistration = () => {
   // Función para validar si los campos están vacíos
   const validateFields = () => {
     return (
-      supplierName && 
-      supplierNIT && 
-      supplierPhone && 
-      supplierAddress && 
-      productCategory && 
-      productCode && 
-      productName && 
-      productQuantity && 
+      supplierName &&
+      supplierNIT &&
+      supplierPhone &&
+      supplierAddress &&
+      productCategory &&
+      productCode &&
+      productName &&
+      productQuantity &&
       unitValue
     );
   };
@@ -145,36 +149,83 @@ const InventoryRegistration = () => {
       />
 
       {/* Pestañas debajo del header */}
+      {/* <div className={styles.tabs}>
+        <Link to="/registro" className={`${styles.tabButton} ${activeTab === "registro" ? styles.active : ""}`}>
+          <button
+            type="button"
+            onClick={() => handleTabClick("registro")}
+          >
+            Registro de Mercancía
+          </button>
+        </Link>
+
+        <Link to="/consulta" className={`${styles.tabButton} ${activeTab === "consulta" ? styles.active : ""}`}>
+          <button
+            type="button"
+            onClick={() => handleTabClick("consulta")}
+          >
+            Consulta de Mercancía
+          </button>
+        </Link>
+
+        <Link to="/actualizar" className={`${styles.tabButton} ${activeTab === "actualizar" ? styles.active : ""}`}>
+          <button
+            type="butt on"
+            onClick={() => handleTabClick("actualizar")}
+          >
+            Actualizar Mercancía
+          </button>
+        </Link>
+
+        <Link to="/eliminar" className={`${styles.tabButton} ${activeTab === "eliminar" ? styles.active : ""}`}>
+          <button
+            type="button"
+            onClick={() => handleTabClick("eliminar")}
+          >
+            Eliminar Mercancía
+          </button>
+        </Link>
+      </div> */}
+
+      {/* Pestañas debajo del header */}
       <div className={styles.tabs}>
-        <button
-          type="button"
+        {/* Enlace para "Registro de Mercancía" */}
+        <Link
+          to="inventory-registration"
           className={`${styles.tabButton} ${activeTab === "registro" ? styles.active : ""}`}
-          onClick={() => handleTabClick("registro")}
+          onClick={() => handleTabClick("registro")} // Manejador de tab click
         >
           Registro de Mercancía
-        </button>
-        <button
-          type="button"
+        </Link>
+
+        {/* Enlace para "Consulta de Mercancía" */}
+        <Link
+          to="/merchandise-query"
           className={`${styles.tabButton} ${activeTab === "consulta" ? styles.active : ""}`}
-          onClick={() => handleTabClick("consulta")}
+          onClick={() => handleTabClick("consulta")} // Manejador de tab click
         >
           Consulta de Mercancía
-        </button>
-        <button
-          type="button"
+        </Link>
+
+        {/* Enlace para "Actualizar Mercancía" */}
+        <Link
+          to="/actualizar"
           className={`${styles.tabButton} ${activeTab === "actualizar" ? styles.active : ""}`}
-          onClick={() => handleTabClick("actualizar")}
+          onClick={() => handleTabClick("actualizar")} // Manejador de tab click
         >
           Actualizar Mercancía
-        </button>
-        <button
-          type="button"
+        </Link>
+
+        {/* Enlace para "Eliminar Mercancía" */}
+        <Link
+          to="/eliminar"
           className={`${styles.tabButton} ${activeTab === "eliminar" ? styles.active : ""}`}
-          onClick={() => handleTabClick("eliminar")}
+          onClick={() => handleTabClick("eliminar")} // Manejador de tab click
         >
           Eliminar Mercancía
-        </button>
+        </Link>
       </div>
+
 
       {/* Contenido dependiendo de la pestaña activa */}
       {activeTab === "registro" && (
@@ -276,7 +327,7 @@ const InventoryRegistration = () => {
               />
 
               <label className={styles.inputLabel}>Valor total:</label>
-              <input 
+              <input
                 type="number"
                 placeholder="Valor total"
                 value={totalValue}
