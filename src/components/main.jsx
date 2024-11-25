@@ -7,6 +7,7 @@ import LoginForm from '../components/LoginForm';
 import MenuPcpal from '../components/MenuPcpal';
 import Footer from '../components/Footer';
 import InventoryRegistration from '../components/InventoryRegistration'; // Asegúrate de importar el nuevo componente
+import MerchandiseQuery from '../components/MerchandiseQuery';
 
 // Inicializa el usuario predeterminado en localStorage
 const initializeDefaultUser = () => {
@@ -56,9 +57,11 @@ createRoot(document.getElementById('root')).render(
           path="/inventory-registration"
           element={<InventoryRegistration />} // Componente de registro de inventario
         />
+        <Route path="/merchandise-query"
+          element={<MerchandiseQuery />} />
       </Routes>
     </Router>
-    
+
     {/* Footer que aparece en todas las páginas */}
     <Footer />
   </StrictMode>
