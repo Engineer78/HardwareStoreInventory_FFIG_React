@@ -5,10 +5,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import CleaningServicesIcon from '@mui/icons-material/CleaningServices';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import UploadFileIcon from '@mui/icons-material/UploadFile'; // Importar el icono de cargar
-// import { Navigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-
-
 
 const InventoryRegistration = () => {
   const [supplierName, setSupplierName] = useState("");
@@ -101,23 +98,52 @@ const InventoryRegistration = () => {
       return;
     }
 
-    // Crear un nuevo producto
-    const newProduct = {
-      id: Date.now(),
-      supplierId,
-      category: productCategory,
-      code: productCode,
-      name: productName,
-      quantity: productQuantity,
-      unitValue,
-      totalValue,
-      image: productImage ? URL.createObjectURL(productImage) : null,
-    };
+    // Manejo de la imagen, convertirla a base64 si está presente
+    let productImageBase64 = null;
+    if (productImage) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        productImageBase64 = reader.result; // Obtenemos la imagen como base64
 
-    products.push(newProduct);
-    localStorage.setItem("products", JSON.stringify(products)); // Guardar los productos actualizados
-    alert("Producto registrado exitosamente.");
-    handleClear(); // Limpiar formulario después de guardar
+        // Crear un nuevo producto con la imagen convertida a base64
+        const newProduct = {
+          id: Date.now(),
+          supplierId,
+          category: productCategory,
+          code: productCode,
+          name: productName,
+          quantity: productQuantity,
+          unitValue,
+          totalValue,
+          image: productImageBase64, // Guardar imagen en base64
+        };
+
+        // Guardar el nuevo producto en el localStorage
+        products.push(newProduct);
+        localStorage.setItem("products", JSON.stringify(products)); // Guardar los productos actualizados
+        alert("Producto registrado exitosamente.");
+        handleClear(); // Limpiar formulario después de guardar
+      };
+      reader.readAsDataURL(productImage); // Convertimos la imagen a base64
+    } else {
+      // Si no hay imagen, solo guardamos el producto sin imagen
+      const newProduct = {
+        id: Date.now(),
+        supplierId,
+        category: productCategory,
+        code: productCode,
+        name: productName,
+        quantity: productQuantity,
+        unitValue,
+        totalValue,
+        image: null, // No hay imagen
+      };
+
+      products.push(newProduct);
+      localStorage.setItem("products", JSON.stringify(products)); // Guardar los productos actualizados
+      alert("Producto registrado exitosamente.");
+      handleClear(); // Limpiar formulario después de guardar
+    }
   };
 
   // Función para limpiar el formulario
@@ -149,83 +175,39 @@ const InventoryRegistration = () => {
       />
 
       {/* Pestañas debajo del header */}
-      {/* <div className={styles.tabs}>
-        <Link to="/registro" className={`${styles.tabButton} ${activeTab === "registro" ? styles.active : ""}`}>
-          <button
-            type="button"
-            onClick={() => handleTabClick("registro")}
-          >
-            Registro de Mercancía
-          </button>
-        </Link>
-
-        <Link to="/consulta" className={`${styles.tabButton} ${activeTab === "consulta" ? styles.active : ""}`}>
-          <button
-            type="button"
-            onClick={() => handleTabClick("consulta")}
-          >
-            Consulta de Mercancía
-          </button>
-        </Link>
-
-        <Link to="/actualizar" className={`${styles.tabButton} ${activeTab === "actualizar" ? styles.active : ""}`}>
-          <button
-            type="butt on"
-            onClick={() => handleTabClick("actualizar")}
-          >
-            Actualizar Mercancía
-          </button>
-        </Link>
-
-        <Link to="/eliminar" className={`${styles.tabButton} ${activeTab === "eliminar" ? styles.active : ""}`}>
-          <button
-            type="button"
-            onClick={() => handleTabClick("eliminar")}
-          >
-            Eliminar Mercancía
-          </button>
-        </Link>
-      </div> */}
-
-      {/* Pestañas debajo del header */}
       <div className={styles.tabs}>
-        {/* Enlace para "Registro de Mercancía" */}
         <Link
           to="inventory-registration"
           className={`${styles.tabButton} ${activeTab === "registro" ? styles.active : ""}`}
-          onClick={() => handleTabClick("registro")} // Manejador de tab click
+          onClick={() => handleTabClick("registro")}
         >
           Registro de Mercancía
         </Link>
 
-        {/* Enlace para "Consulta de Mercancía" */}
         <Link
           to="/merchandise-query"
           className={`${styles.tabButton} ${activeTab === "consulta" ? styles.active : ""}`}
-          onClick={() => handleTabClick("consulta")} // Manejador de tab click
+          onClick={() => handleTabClick("consulta")}
         >
           Consulta de Mercancía
         </Link>
 
-        {/* Enlace para "Actualizar Mercancía" */}
         <Link
           to="/actualizar"
           className={`${styles.tabButton} ${activeTab === "actualizar" ? styles.active : ""}`}
-          onClick={() => handleTabClick("actualizar")} // Manejador de tab click
+          onClick={() => handleTabClick("actualizar")}
         >
           Actualizar Mercancía
         </Link>
 
-        {/* Enlace para "Eliminar Mercancía" */}
         <Link
           to="/eliminar"
           className={`${styles.tabButton} ${activeTab === "eliminar" ? styles.active : ""}`}
-          onClick={() => handleTabClick("eliminar")} // Manejador de tab click
+          onClick={() => handleTabClick("eliminar")}
         >
           Eliminar Mercancía
         </Link>
       </div>
-
 
       {/* Contenido dependiendo de la pestaña activa */}
       {activeTab === "registro" && (
@@ -334,7 +316,6 @@ const InventoryRegistration = () => {
                 disabled
                 className={styles.inputValorTotal}
               />
-
             </form>
 
             <form className={styles.formRight}>
@@ -360,9 +341,6 @@ const InventoryRegistration = () => {
                 <label htmlFor="fileInput" className={styles.customFileInput}>
                   Cargar Imagen <UploadFileIcon style={{ marginLeft: 5 }} />
                 </label>
-                <span className={styles.fileInputLabel}>
-                  {productImage ? productImage.name : "Ningún archivo seleccionado"}
-                </span>
               </div>
             </form>
           </div>

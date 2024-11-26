@@ -1,85 +1,246 @@
-/* inventoryregistration.module.css */
-.container {
-    padding: 20px;
-    background-color: #fdf5d8; /* Fondo amarillo claro */
-  }
-  
-  .tabs {
-    margin-bottom: 20px;
-  }
-  
-  .tabButton {
-    padding: 10px 20px;
-    background-color: #444;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .active {
-    background-color: #222;
-  }
-  
-  .content {
-    margin-top: 20px;
-  }
-  
-  .instruction {
-    font-size: 16px;
-    margin-bottom: 20px;
-  }
-  
-  .tableContainer {
-    overflow-x: auto;
-    margin-bottom: 20px;
-  }
-  
-  .inventoryTable {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .inventoryTable th,
-  .inventoryTable td {
-    border: 1px solid #ccc;
-    padding: 8px;
-    text-align: left;
-  }
-  
-  .buttonsContainer {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .button {
-    padding: 10px 20px;
-    border: none;
-    background-color: #444;
-    color: #fff;
-    cursor: pointer;
-  }
-  
-  .exportButton {
-    background-color: #4caf50;
-  }
-  
-  .printButton {
-    background-color: #ff9800;
-  }
-  
-  .actionButtons .button {
-    margin-left: 10px;
-  }
-  
-  .searchButton {
-    background-color: #2196f3;
-  }
-  
-  .clearButton {
-    background-color: #f44336;
-  }
-  
-  .exitButton {
-    background-color: #9e9e9e;
-  }
-  
+/* Estilo global para el cuerpo de la página */
+body {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  min-height: 100vh; /* Asegura que el body ocupe toda la altura sin afectar el header */
+}
+
+/* Contenedor principal con scroll */
+.scroll-container {
+  overflow-y: scroll; /* Barra de desplazamiento vertical */
+  height: 100vh; /* Asegura que el contenedor ocupe toda la pantalla */
+  padding: 0 20px; /* Espacio lateral para dar margen a todo el contenido */
+}
+
+/* Scrollbar para navegadores basados en Webkit (Chrome, Safari, Brave) */
+.scroll-container::-webkit-scrollbar {
+  width: 12px; /* Ancho del scrollbar */
+}
+
+.scroll-container::-webkit-scrollbar-track {
+  background: #333233 !important; /* Color del fondo del scrollbar */
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+  background-color: #565557 !important; /* Color del thumb */
+  border-radius: 10px !important; /* Bordes redondeados */
+}
+
+.scroll-container::-webkit-scrollbar-thumb:hover {
+  background: #555 !important; /* Color del thumb al hacer hover */
+}
+
+/* Scrollbar para Firefox */
+.scroll-container {
+  scrollbar-color: #565557 #333233; /* Color del thumb y de la pista */
+  scrollbar-width: thin; /* Ancho del scrollbar */
+}
+
+/* Título de la tabla */
+.title {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  margin-left: 172px;
+  text-align: left;
+}
+
+/* Estilo para las pestañas de navegación */
+.tabs {
+  display: flex;
+  flex: 1;
+  justify-content: center; /* Centrar pestañas horizontalmente */
+  margin-bottom: 20px;
+}
+
+/* Enlace de pestaña con efectos */
+.tabButton {
+  align-items: center;
+  background-color: #333233; /* Color de fondo */
+  border: none;
+  border-radius: 1px 25px 1px 1px; /* Bordes personalizados */
+  color: white;
+  cursor: pointer;
+  padding: 10px 20px;
+  text-decoration: none; /* Sin subrayado */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Transiciones */
+}
+
+.tabButton.active {
+  background-color: #565557; /* Fondo para pestaña activa */
+  color: white; /* Texto blanco */
+  font-weight: bold; /* Negrita */
+}
+
+.tabButton:hover {
+  background-color: #565557; /* Fondo al pasar el cursor */
+  color: white;
+}
+
+/* Asegurar enlaces limpios */
+.tabs a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+/* Tabla principal */
+.table {
+  width: 100%; /* Ocupa el ancho completo del contenedor */
+  max-width: 1200px; /* Limita el ancho máximo de la tabla */
+  margin: 0 auto; /* Centra la tabla horizontalmente */
+  border-collapse: collapse; /* Evita doble borde entre celdas */
+  text-align: center; /* Centra horizontalmente el contenido */
+  table-layout: auto; /* Ajuste dinámico del ancho de las columnas */
+  font-size: 0.85rem; /* Reducir tamaño de la letra en la tabla */
+}
+
+/* Cambios importantes para que el encabezado sea fijo y solo el cuerpo sea desplazable */
+.table-wrapper {
+  display: block;
+  max-height: calc(100vh - 120px); /* Ajusta la altura de la tabla para que el encabezado quede visible */
+  overflow-y: auto; /* Permite el desplazamiento solo en el cuerpo de la tabla */
+}
+
+/* Aseguramos que el encabezado se quede fijo al hacer scroll */
+.table thead {
+  position: sticky;
+  top: 0; /* Hace que el encabezado quede pegado al top */
+  background-color: #333233; /* Fondo para el encabezado */
+  color: #ffffff;
+  font-size: 0.9rem; /* Tamaño del texto en encabezado */
+  z-index: 1; /* Asegura que el encabezado se quede sobre las filas al hacer scroll */
+}
+
+/* Celdas del encabezado y cuerpo de la tabla */
+th, td {
+  border: 1px solid #ccc; /* Bordes grises claros */
+  padding: 6px; /* Reducido el espaciado interno */
+  vertical-align: middle; /* Centrar verticalmente el contenido */
+}
+
+/* Inputs dentro del encabezado */
+th input {
+  width: 90%; /* Tamaño adaptable a la celda */
+  padding: 3px; /* Reducir el espaciado interno del input */
+  font-size: 0.85rem; /* Tamaño más pequeño del texto en los inputs */
+  height: 26px; /* Altura más delgada para los inputs */
+  border: 1px solid #ccc; /* Borde sutil */
+  border-radius: 3px; /* Bordes ligeramente redondeados */
+}
+
+/* Estilo para checkboxes */
+th input[type="checkbox"], td input[type="checkbox"] {
+  width: 16px; /* Reducir tamaño del checkbox */
+  height: 16px; /* Reducir tamaño del checkbox */
+  cursor: pointer; /* Cambiar el cursor a puntero por defecto */
+}
+
+/* Solo aplicar cursor: not-allowed cuando el checkbox esté deshabilitado */
+/* Quitar estilo predeterminado del checkbox y personalizarlo */
+th input[type="checkbox"]:disabled, td input[type="checkbox"]:disabled {
+  -webkit-appearance: none;  /* Para Webkit (Chrome, Safari, etc.) */
+  -moz-appearance: none;     /* Para Firefox */
+  appearance: none;          /* Para otros navegadores */
+  width: 16px;
+  height: 16px;
+  background-color: #565557; /* Color de fondo cuando está deshabilitado */
+  border: 2px solid #ccc;    /* Borde gris claro */
+  border-radius: 4px;        /* Bordes redondeados */
+  cursor: not-allowed;      /* Cursor prohibido */
+}
+
+/* Inputs deshabilitados en las celdas */
+th input[disabled] {
+  background-color: #565557; /* Fondo gris claro */
+  color: #FFFFFF; /* Texto gris */
+  border: 1px solid #ccc; /* Borde sutil */
+}
+
+/* Filas del cuerpo de la tabla */
+tbody tr {
+  background-color: #fff; /* Fondo blanco por defecto */
+}
+
+tbody tr:hover {
+  background-color: #f7f7f7; /* Fondo al pasar el cursor */
+}
+
+/* Texto en las celdas del cuerpo */
+tbody td {
+  font-size: 0.8rem; /* Reducir tamaño del texto en celdas */
+}
+
+/* Ajuste dinámico del ancho de inputs */
+tbody td input {
+  width: 90%; /* Inputs se ajustan al ancho de la celda */
+  height: 26px; /* Altura delgada de los inputs */
+}
+
+.input-with-icon {
+  position: relative;
+}
+
+.input-with-icon input {
+  padding-right: 25px; /* Deja suficiente espacio para el ícono */
+  height: 26px; /* Altura consistente del input */
+  line-height: 1.5; /* Alineación vertical del texto dentro del input */
+  vertical-align: middle; /* Alinea el texto verticalmente */
+}
+
+/* Icono dentro del input */
+.icon {
+  color: #b2b2b2;
+  font-size: 18px !important; /* Ajusta el tamaño del ícono */
+  position: absolute;
+  right: 10px; /* Ajusta la posición del ícono hacia la derecha */
+  top: 71%; /* Centra verticalmente el ícono */
+  transform: translateY(-50%); /* Ajuste perfecto del ícono */
+  pointer-events: none; /* Asegura que el ícono no interfiera con la interacción del input */
+}
+
+.modalImage {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Modal Overlay */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro semi-transparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Asegura que esté encima de otros elementos */
+}
+
+/* Modal Content */
+.modalContent {
+  position: relative;
+  background-color: white;
+  padding: 20px;
+  max-width: 30%;
+  max-height: 40%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Close Button */
+.closeButton {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: #ff5c5c;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 50%;
+  font-size: 18px;
+}

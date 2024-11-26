@@ -7,6 +7,35 @@ body {
   min-height: 100vh;
 }
 
+/* Contenedor principal con scroll */
+.scroll-container {
+  overflow-y: scroll; /* Asegurar que siempre haya una barra de desplazamiento vertical */
+}
+
+/* Scrollbar para navegadores basados en Webkit (Chrome, Safari, Brave) */
+.scroll-container::-webkit-scrollbar {
+  width: 12px;
+}
+
+.scroll-container::-webkit-scrollbar-track {
+  background: #333233 !important; /* Color del fondo */
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+  background-color: #565557 !important; /* Color del thumb */
+  border-radius: 10px !important; /* Bordes redondeados */
+}
+
+.scroll-container::-webkit-scrollbar-thumb:hover {
+  background: #555 !important; /* Color del thumb al hacer hover */
+}
+
+/* Scrollbar para Firefox */
+.scroll-container {
+  scrollbar-color: #565557 #333233; /* Color del thumb y de la pista */
+  scrollbar-width: thin; /* Ancho del scroll */
+}
+
 /* Contenedor principal donde se ubican los formularios y el contenido */
 .container {
   color: #333;
@@ -189,7 +218,7 @@ body {
   justify-content: center;
   margin-bottom: 10px;
   margin-top: -15px;
-  opacity: 0.6;
+  /* opacity: 0.6; */
   width: 300px;
 }
 
@@ -287,7 +316,7 @@ body {
   margin-left: 0;
 }
 
-/* Media Queries */
+/* ------------------------ @Media Queries --------------------- */
 
 @media (max-width: 480px) {
   .container {

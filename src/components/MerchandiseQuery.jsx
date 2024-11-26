@@ -1,23 +1,121 @@
-import { useState } from "react";
-import Header from "./Header"; // Asegúrate de que Header está funcionando correctamente.
-import styles from "../styles/merchandisequery.module.css"; // Verifica la ruta correcta.
+import { useState, useEffect } from 'react';
+import Header from './Header';
+import styles from '../styles/merchandisequery.module.css';
 import { Link } from 'react-router-dom';
 
-const MerchandiseQuery = () => {
-  // Paso 1: Definir el estado 'activeTab' para manejar la pestaña activa
-  const [activeTab, setActiveTab] = useState("registro"); // Valor inicial es 'registro'
+// Función para cargar productos desde localStorage
+const loadProducts = () => JSON.parse(localStorage.getItem('products')) || [];
 
-  // Paso 2: Definir la función 'handleTabClick' para actualizar el estado
+// Función para cargar proveedores desde localStorage
+const loadSuppliers = () => JSON.parse(localStorage.getItem('suppliers')) || [];
+
+const MerchandiseQuery = () => {
+  const [activeTab, setActiveTab] = useState("consulta");
+  const [data, setData] = useState([]); // Almacena los datos combinados y filtrados
+  const [filters, setFilters] = useState({ codigo: '', categoria: '', nombre: '' }); // Filtros del usuario
+  const [disabledInputs, setDisabledInputs] = useState({ // Estado para inputs deshabilitados
+    existencias: '',
+    valorUnitario: '',
+    valorTotal: '',
+    proveedor: '',
+    nitProveedor: ''
+  });
+  const [modalImage, setModalImage] = useState(null); // Estado para la imagen de la ventana flotante
+
   const handleTabClick = (tab) => {
-    setActiveTab(tab); // Actualiza el estado 'activeTab' con el valor de la pestaña seleccionada
+    setActiveTab(tab);
   };
 
-  // Contenido principal del componente
+  // Cargar datos combinados al montar el componente
+  useEffect(() => {
+    const products = loadProducts();
+    const suppliers = loadSuppliers();
+
+    const combinedData = products.map(product => {
+      const supplier = suppliers.find(sup => sup.id === product.supplierId) || {};
+      return {
+        ...product,
+        supplierName: supplier.name || '',
+        supplierNIT: supplier.nit || ''
+      };
+    });
+
+    setData(combinedData); // Inicializa con todos los datos
+  }, []);
+
+  // Actualizar los datos filtrados y los inputs deshabilitados
+  useEffect(() => {
+    const products = loadProducts();
+    const suppliers = loadSuppliers();
+
+    const combinedData = products.map(product => {
+      const supplier = suppliers.find(sup => sup.id === product.supplierId) || {};
+      return {
+        ...product,
+        supplierName: supplier.name || '',
+        supplierNIT: supplier.nit || ''
+      };
+    });
+
+    // Aplicar filtros
+    const filteredData = combinedData.filter(item =>
+      item.code.toLowerCase().includes(filters.codigo.toLowerCase()) &&
+      item.category.toLowerCase().includes(filters.categoria.toLowerCase()) &&
+      item.name.toLowerCase().includes(filters.nombre.toLowerCase())
+    );
+
+    setData(filteredData); // Actualiza los datos de la tabla
+
+    // Solo actualizar inputs deshabilitados si hay resultados filtrados
+    if (filters.codigo || filters.categoria || filters.nombre) {
+      if (filteredData.length > 0) {
+        const firstItem = filteredData[0]; // Toma el primer registro filtrado
+        setDisabledInputs({
+          existencias: firstItem.quantity || '',
+          valorUnitario: firstItem.unitValue || '',
+          valorTotal: firstItem.totalValue || '',
+          proveedor: firstItem.supplierName || '',
+          nitProveedor: firstItem.supplierNIT || ''
+        });
+      } else {
+        // Si no hay resultados filtrados, vaciar los inputs deshabilitados
+        setDisabledInputs({
+          existencias: '',
+          valorUnitario: '',
+          valorTotal: '',
+          proveedor: '',
+          nitProveedor: ''
+        });
+      }
+    } else {
+      // Si no hay filtros aplicados, mantener los inputs deshabilitados vacíos
+      setDisabledInputs({
+        existencias: '',
+        valorUnitario: '',
+        valorTotal: '',
+        proveedor: '',
+        nitProveedor: ''
+      });
+    }
+  }, [filters]);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFilters(prevFilters => ({ ...prevFilters, [name]: value }));
+  };
+
+  const handleImageClick = (imageUrl) => {
+    setModalImage(imageUrl);
+  };
+
+  const closeModal = () => {
+    setModalImage(null);
+  };
+
   return (
-    <div className={styles.container}>
-      {/* Header del módulo */}
+    <div className={styles.scrollContainer}>
       <Header
-        title="Módulo de consulta de mercancía"
+        title="Módulo registro de inventario"
         subtitle="Hardware Store Inventory FFIG"
         showLogo={true}
         showHelp={true}
@@ -25,109 +123,128 @@ const MerchandiseQuery = () => {
 
       {/* Pestañas debajo del header */}
       <div className={styles.tabs}>
-        {/* Enlace para "Registro de Mercancía" */}
         <Link
           to="/inventory-registration"
           className={`${styles.tabButton} ${activeTab === "registro" ? styles.active : ""}`}
-          onClick={() => handleTabClick("registro")} // Llamamos a 'handleTabClick' con el valor 'registro'
+          onClick={() => handleTabClick("registro")}
         >
           Registro de Mercancía
         </Link>
 
-        {/* Enlace para "Consulta de Mercancía" */}
         <Link
-          to="/merchandise-query"
+          to="/inventory-registration"
           className={`${styles.tabButton} ${activeTab === "consulta" ? styles.active : ""}`}
-          onClick={() => handleTabClick("consulta")} // Llamamos a 'handleTabClick' con el valor 'consulta'
+          onClick={() => handleTabClick("consulta")}
         >
           Consulta de Mercancía
         </Link>
 
-        {/* Enlace para "Actualizar Mercancía" */}
         <Link
-          to="/actualizar"
+          to="/inventory-registration"
           className={`${styles.tabButton} ${activeTab === "actualizar" ? styles.active : ""}`}
-          onClick={() => handleTabClick("actualizar")} // Llamamos a 'handleTabClick' con el valor 'actualizar'
+          onClick={() => handleTabClick("actualizar")}
         >
           Actualizar Mercancía
         </Link>
 
-        {/* Enlace para "Eliminar Mercancía" */}
         <Link
-          to="/eliminar"
+          to="/inventory-registration"
           className={`${styles.tabButton} ${activeTab === "eliminar" ? styles.active : ""}`}
-          onClick={() => handleTabClick("eliminar")} // Llamamos a 'handleTabClick' con el valor 'eliminar'
+          onClick={() => handleTabClick("eliminar")}
         >
           Eliminar Mercancía
         </Link>
       </div>
 
-      {/* Contenedor principal del contenido */}
-      <div className={styles.content}>
-        {/* Texto de instrucciones */}
-        <p className={styles.instruction}>
+      {/* Contenido dependiendo de la pestaña activa */}
+      <div className={styles.container}>
+        <h2 className={styles.title}>
           Ingrese un dato en la casilla correspondiente para realizar la consulta
-        </p>
+        </h2>
+      </div>
 
-        {/* Tabla de inventario */}
-        <div className={styles.tableContainer}>
-          <table className={styles.inventoryTable}>
-            <thead>
-              <tr>
-                <th>Selección</th>
-                <th>Código</th>
-                <th>Categoría</th>
-                <th>Nombre del producto</th>
-                <th>Existencias</th>
-                <th>Valor U x producto</th>
-                <th>Valor total producto</th>
-                <th>Proveedor</th>
-                <th>NIT Proveedor</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <input type="checkbox" />
-                </td>
-                <td>21</td>
-                <td>Alum...</td>
-                <td>Teja ajover 3 mts</td>
-                <td>
-                  <input type="text" value="3" />
-                </td>
-                <td>$84.900</td>
-                <td>$254.700</td>
-                <td>AJOVER</td>
-                <td>12345678-01</td>
-              </tr>
-              {/* Agrega más filas aquí según sea necesario */}
-            </tbody>
-          </table>
-        </div>
+      {/* Tabla de consulta de mercancía */}
+      <table className={styles.table}>
+        <thead>
+          <tr>
+            <th>
+              Selección
+              <input type="checkbox" disabled />
+            </th>
+            <th>
+              Código
+              <input type="text" name="codigo" onChange={handleInputChange} />
+            </th>
+            <th>
+              Categoría
+              <input type="text" name="categoria" onChange={handleInputChange} />
+            </th>
+            <th>
+              Nom. del producto
+              <input type="text" name="nombre" onChange={handleInputChange} />
+            </th>
+            <th>
+              Existencias
+              <input type="text" value={disabledInputs.existencias} disabled />
+            </th>
+            <th>
+              Valor Unitario
+              <input type="text" value={disabledInputs.valorUnitario} disabled />
+            </th>
+            <th>
+              Valor total prod.
+              <input type="text" value={disabledInputs.valorTotal} disabled />
+            </th>
+            <th>
+              Proveedor
+              <input type="text" value={disabledInputs.proveedor} disabled />
+            </th>
+            <th>
+              NIT Proveedor
+              <input type="text" value={disabledInputs.nitProveedor} disabled />
+            </th>
+            <th>Imagen</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((item, index) => (
+            <tr key={index}>
+              <td><input type="checkbox" /></td>
+              <td>{item.code}</td>
+              <td>{item.category}</td>
+              <td>{item.name}</td>
+              <td>{item.quantity}</td>
+              <td>{item.unitValue}</td>
+              <td>{item.totalValue}</td>
+              <td>{item.supplierName}</td>
+              <td>{item.supplierNIT}</td>
+              <td>
+                {item.image ? (
+                  <a href="#" onClick={() => handleImageClick(item.image)}>Ver Imagen</a>
+                ) : (
+                  'No disponible'
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
 
-        {/* Botones de acción */}
-        <div className={styles.buttonsContainer}>
-          <button className={`${styles.button} ${styles.exportButton}`}>
-            Exportar
-          </button>
-          <button className={`${styles.button} ${styles.printButton}`}>
-            Imprimir
-          </button>
-          <div className={styles.actionButtons}>
-            <button className={`${styles.button} ${styles.searchButton}`}>
-              Buscar
-            </button>
-            <button className={`${styles.button} ${styles.clearButton}`}>
-              Limpiar
-            </button>
-            <button className={`${styles.button} ${styles.exitButton}`}>
-              Salir
-            </button>
+      {/* Modal para mostrar la imagen */}
+      {modalImage && (
+        <div className={styles.modal} onClick={closeModal}>
+          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+            {/* Verificamos si la imagen tiene una URL válida antes de renderizar */}
+            {modalImage.startsWith("data:image") ? (
+              <img src={modalImage} alt="Producto" className={styles.modalImage} />
+            ) : (
+              <p>Imagen no disponible</p>
+            )}
+            <button className={styles.closeButton} onClick={closeModal}>Cerrar</button>
           </div>
         </div>
-      </div>
-      <p>Este es un texto de prueba para verificar el renderizado.</p>
+      )}
+
     </div>
   );
 };
