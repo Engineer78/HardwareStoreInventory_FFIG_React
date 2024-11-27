@@ -357,7 +357,7 @@ const InventoryRegistration = () => {
               onClick={() => (window.location.href = "/menu-principal")}
               className={styles.button}
             >
-              Salir <ExitToAppIcon style={{ marginLeft: 8, color: "white" }} />
+              Salir <ExitToAppIcon style={{ marginLeft: 8 }} />
             </button>
           </div>
         </div>
