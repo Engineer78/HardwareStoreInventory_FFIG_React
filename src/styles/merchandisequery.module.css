@@ -10,7 +10,7 @@ body {
 /* Contenedor principal con scroll */
 .scroll-container {
   overflow-y: scroll; /* Barra de desplazamiento vertical */
-  height: 100vh; /* Asegura que el contenedor ocupe toda la pantalla */
+  min-height: calc(100vh - 80px); /* Asegura que el contenedor ocupe toda la altura restante después de los botones */
   padding: 0 20px; /* Espacio lateral para dar margen a todo el contenido */
 }
 
@@ -89,7 +89,7 @@ body {
   width: 100%; /* Ocupa el ancho completo del contenedor */
   max-width: 1200px; /* Limita el ancho máximo de la tabla */
   margin: 0 auto; /* Centra la tabla horizontalmente */
-  border-collapse: collapse; /* Evita doble borde entre celdas */
+  margin-bottom: 60px; /*espacio en la parte inferior para evitar que la tabla se solape con los botones*/  border-collapse: collapse; /* Evita doble borde entre celdas */
   text-align: center; /* Centra horizontalmente el contenido */
   table-layout: auto; /* Ajuste dinámico del ancho de las columnas */
   font-size: 0.85rem; /* Reducir tamaño de la letra en la tabla */
@@ -194,7 +194,7 @@ tbody td input {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 2000; /* Asegura que esté encima de otros elementos */
+  z-index: 3500; /* Asegura que esté encima de otros elementos */
 }
 
 /* Modal Content */
@@ -238,7 +238,7 @@ tbody td input {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 2000;
+  z-index: 3500;
 }
 
 /* Contenido del modal */
@@ -356,12 +356,15 @@ tbody td input {
 /* estilos para los botones de Acción */
 /* Estilo para el contenedor de los botones */
 .buttons {
+  position: fixed;
+  bottom: 100px;
   align-items: flex-end;
   display: flex;
   gap: 10px;
   justify-content: flex-end;
-  margin-right: 70px;
-  margin-top: 5px;
+  margin-left: 990px;
+  margin-top: 330px;
+  z-index: 3000;
 }
 
 /* Estilos generales para los botones */

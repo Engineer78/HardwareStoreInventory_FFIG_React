@@ -228,8 +228,9 @@ body {
   display: flex;
   gap: 10px;
   justify-content: flex-end;
-  margin-right: 70px;
+  margin-left: 1030px;
   margin-top: 5px;
+  z-index: 3000;
 }
 
 /* Estilos generales para los botones */
@@ -276,10 +277,6 @@ body {
   background-color: #333233; /* Color principal */
 }
 
-/* .button:nth-child(2):hover {
-  background-color: #565557; Color de hover
-} */
-
 .button:nth-child(2):focus {
   outline: none;
   background-color: #333233; /* Vuelve al color principal */
@@ -295,10 +292,6 @@ body {
 .button:nth-child(3) {
   background-color: #565557; /* Color principal */
 }
-
-/* .button:nth-child(3):hover {
-  background-color: #333233; Color de hover
-} */
 
 .button:nth-child(3):focus {
   outline: none;
