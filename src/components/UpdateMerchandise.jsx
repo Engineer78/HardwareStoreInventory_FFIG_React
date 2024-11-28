@@ -162,7 +162,7 @@ const UpdateMerchandise = () => {
   };
 
   useEffect(() => {
-    setActiveTab("registro"); // Asegurarse de que la pestaña de registro esté activa al cargar
+    setActiveTab("actualizar"); // Asegurarse de que la pestaña de actualizar esté activa al cargar
   }, []);
 
   return (
@@ -210,25 +210,15 @@ const UpdateMerchandise = () => {
       </div>
 
       {/* Contenido dependiendo de la pestaña activa */}
-      {activeTab === "registro" && (
+      {activeTab === "actualizar" && (
         <div className={styles.container}>
           <h2 className={styles.title}>
-            Ingrese la información solicitada para crear el registro
+            Ingrese NIT o Código para buscar y actualizar el registro
           </h2>
 
           <div className={styles.formContainer}>
             <form className={styles.formLeft}>
-              <label className={styles.inputLabel}>Nombre del Proveedor:</label>
-              <input
-                type="text"
-                placeholder="Nombre del Proveedor (Obligatorio)"
-                value={supplierName}
-                onChange={(e) => setSupplierName(e.target.value)}
-                required
-                className={styles.input}
-              />
-
-              <label className={styles.inputLabel}>NIT:</label>
+            <label className={styles.inputLabel}>NIT:</label>
               <input
                 type="text"
                 placeholder="NIT (Obligatorio)"
@@ -238,6 +228,26 @@ const UpdateMerchandise = () => {
                 className={styles.input}
               />
 
+<label className={styles.inputLabel}>Crear código del producto:</label>
+              <input
+                type="text"
+                placeholder="Código del producto (Obligatorio)"
+                value={productCode}
+                onChange={(e) => setProductCode(e.target.value)}
+                required
+                className={styles.input}
+              />     
+              
+              <label className={styles.inputLabel}>Nombre del Proveedor:</label>
+              <input
+                type="text"
+                placeholder="Nombre del Proveedor (Obligatorio)"
+                value={supplierName}
+                onChange={(e) => setSupplierName(e.target.value)}
+                required
+                className={styles.input}
+              />
+              
               <label className={styles.inputLabel}>Teléfono:</label>
               <input
                 type="text"
@@ -258,22 +268,12 @@ const UpdateMerchandise = () => {
                 className={styles.input}
               />
 
-              <label className={styles.inputLabel}>Crear categoría de la mercancía:</label>
+              <label className={styles.inputLabel}>Categoría de la mercancía:</label>
               <input
                 type="text"
                 placeholder="Categoría de la mercancía (Obligatorio)"
                 value={productCategory}
                 onChange={(e) => setProductCategory(e.target.value)}
-                required
-                className={styles.input}
-              />
-
-              <label className={styles.inputLabel}>Crear código del producto:</label>
-              <input
-                type="text"
-                placeholder="Código del producto (Obligatorio)"
-                value={productCode}
-                onChange={(e) => setProductCode(e.target.value)}
                 required
                 className={styles.input}
               />

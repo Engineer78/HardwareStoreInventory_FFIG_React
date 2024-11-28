@@ -287,7 +287,8 @@ const MerchandiseQuery = () => {
       <div className={styles.tabs}>
         <Link
           to="/inventory-registration"
-          className={`${styles.tabButton} ${activeTab === 'registro' ? styles.active : ''
+          className={`${styles.tabButton} ${
+            activeTab === 'registro' ? styles.active : ''
           }`}
           onClick={() => handleTabClick('registro')}
         >
@@ -305,7 +306,7 @@ const MerchandiseQuery = () => {
         </Link>
 
         <Link
-          to="update-merchandise"
+          to="/update-merchandise"
           className={`${styles.tabButton} ${
             activeTab === 'actualizar' ? styles.active : ''
           }`}
@@ -315,7 +316,7 @@ const MerchandiseQuery = () => {
         </Link>
 
         <Link
-          to="Eliminar"
+          to="/Eliminar"
           className={`${styles.tabButton} ${
             activeTab === 'eliminar' ? styles.active : ''
           }`}
