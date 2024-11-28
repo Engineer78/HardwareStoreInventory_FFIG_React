@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import Header from './Header';
 import styles from '../styles/merchandisequery.module.css';
-import { Link } from 'react-router-dom';
 import CleaningServicesIcon from '@mui/icons-material/CleaningServices';
 import SearchIcon from '@mui/icons-material/Search';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import { Link } from 'react-router-dom';
 
 // Función para cargar productos desde localStorage
 const loadProducts = () => JSON.parse(localStorage.getItem('products')) || [];
@@ -287,8 +287,7 @@ const MerchandiseQuery = () => {
       <div className={styles.tabs}>
         <Link
           to="/inventory-registration"
-          className={`${styles.tabButton} ${
-            activeTab === 'registro' ? styles.active : ''
+          className={`${styles.tabButton} ${activeTab === 'registro' ? styles.active : ''
           }`}
           onClick={() => handleTabClick('registro')}
         >
@@ -296,7 +295,7 @@ const MerchandiseQuery = () => {
         </Link>
 
         <Link
-          to="/inventory-registration"
+          to="/merchandise-query"
           className={`${styles.tabButton} ${
             activeTab === 'consulta' ? styles.active : ''
           }`}
@@ -306,7 +305,7 @@ const MerchandiseQuery = () => {
         </Link>
 
         <Link
-          to="/inventory-registration"
+          to="Actualizar"
           className={`${styles.tabButton} ${
             activeTab === 'actualizar' ? styles.active : ''
           }`}
@@ -316,7 +315,7 @@ const MerchandiseQuery = () => {
         </Link>
 
         <Link
-          to="/inventory-registration"
+          to="Eliminar"
           className={`${styles.tabButton} ${
             activeTab === 'eliminar' ? styles.active : ''
           }`}
