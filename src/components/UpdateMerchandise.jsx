@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import Header from "./Header"; // Importación del componente Header
-import styles from "../styles/inventoryregistration.module.css"; // Importación del CSS
+import styles from "../styles/updatemerchandise.module.css"; // Importación del CSS
 import SaveIcon from '@mui/icons-material/Save';
 import CleaningServicesIcon from '@mui/icons-material/CleaningServices';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import UploadFileIcon from '@mui/icons-material/UploadFile'; // Importar el icono de cargar
 import { Link } from 'react-router-dom';
 
-const InventoryRegistration = () => {
+const UpdateMerchandise = () => {
   const [supplierName, setSupplierName] = useState("");
   const [supplierNIT, setSupplierNIT] = useState("");
   const [supplierPhone, setSupplierPhone] = useState("");
@@ -366,4 +366,4 @@ const InventoryRegistration = () => {
   );
 };
 
-export default InventoryRegistration;
+export default UpdateMerchandise;

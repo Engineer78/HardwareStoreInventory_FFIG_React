@@ -305,7 +305,7 @@ const MerchandiseQuery = () => {
         </Link>
 
         <Link
-          to="Actualizar"
+          to="update-merchandise"
           className={`${styles.tabButton} ${
             activeTab === 'actualizar' ? styles.active : ''
           }`}
