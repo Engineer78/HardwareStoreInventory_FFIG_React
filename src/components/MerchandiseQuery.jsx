@@ -250,7 +250,7 @@ const MerchandiseQuery = () => {
         </Link>
 
         <Link
-          to="/inventory-registration"
+          to="/merchandise-query"
           className={`${styles.tabButton} ${
             activeTab === 'consulta' ? styles.active : ''
           }`}
@@ -260,7 +260,7 @@ const MerchandiseQuery = () => {
         </Link>
 
         <Link
-          to="/inventory-registration"
+          to="/update-merchandise"
           className={`${styles.tabButton} ${
             activeTab === 'actualizar' ? styles.active : ''
           }`}
@@ -270,7 +270,7 @@ const MerchandiseQuery = () => {
         </Link>
 
         <Link
-          to="/inventory-registration"
+          to="/delete-merchandise"
           className={`${styles.tabButton} ${
             activeTab === 'eliminar' ? styles.active : ''
           }`}
@@ -279,6 +279,7 @@ const MerchandiseQuery = () => {
           Eliminar Mercancía
         </Link>
       </div>
+      
       {/* Contenido dependiendo de la pestaña activa */}
       <div className={styles.container}>
         <h2 className={styles.title}>
