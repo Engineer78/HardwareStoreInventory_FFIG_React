@@ -1,23 +1,27 @@
+## Hardware Stote Inventory - FFIG
+Este proyecto hace parte de la Evidencia: Diseño front-end que cumpla con los requerimientos del proyecto GA6-220501096-AA4-EV03.
+
+Este proyecto permite la gestión de inventario para una ferretería, implementando el módulo de registro de inventario.
+
 # React + Vite
-
-# Hardware Stote Inventory - FFIG
-
-Este proyecto permite la gestión de inventario de una ferretería.
+Este proyecto se centra en el módulo de registro de inventario para una ferretería. Para ello, se utiliza el framework React, que facilita la creación de componentes reutilizables, junto con Vite, una herramienta de compilación que proporciona una experiencia de desarrollo más rápida y ágil para proyectos web modernos. Además, se emplean tecnologías de desarrollo web como JavaScript, HTML y CSS3.
 
 ## Instalación
 
-Este proyecto es un proyecto Web y será desplegado en Vercel para poder comprobar su funcionamiento.
+Al ser un proyecto web, será desplegado en Vercel para permitir su evaluación y garantizar su correcto funcionamiento.
 
 ## Uso
 
-El uso de este proyecto se hará a través de local storage, para iniciar la sesión hay un usuario de prueba, aquí se deja el nombre de usuario y la contraseña, para el ingreso
+El almacenamiento de los registros se realizará utilizando localStorage. Para iniciar sesión, se ha creado un usuario de prueba; a continuación, se proporcionan el nombre de usuario y la contraseña necesarios para el acceso.
 
-Usuario:
-Contraseña:
+Usuario: admin@gmail.com
+Contraseña: 12345
 
 ## Contribuciones
 
-Proyecto realizado por loa aprendices del SENA Centro de Comercio y Turismo de Armenia, Regional Quindío.<br>
+Proyecto realizado por los aprendices del SENA Centro de Comercio y Turismo de Armenia, Regional Quindío.<br>
+
+Tecnología en Análisis y Desarrollo de Software: <br>
 
 David Ricardo Graffe Rodríguez<br>
 Ficha: 2979724<br>
@@ -25,4 +29,5 @@ Joaquín H Jiménez Rosas<br>
 Juan David Gallego López<br>
 Ficha: 2879723<br>
 
-CopyRight © 2024-2025
+CopyRight © 2024-2025 <br>
+@JuDaJoSystemSoft. All rights reserved
