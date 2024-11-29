@@ -132,8 +132,11 @@ body {
   z-index: 2;
 }
 
-.inputLabel[disabled] {
-  color: white; /* Cambiar color a blanco cuando esté deshabilitado */
+.inputValorTotal {
+  background-color: rgb(238, 238, 238);
+  color: black;
+  font-style: italic;
+  margin-top: -10px;
 }
 
 /* Estilo de los inputs */
@@ -250,7 +253,7 @@ body {
   display: flex;
   gap: 10px;
   justify-content: flex-end;
-  margin-right: -162px;
+  margin-right: -192px;
   margin-top: 10px;
   z-index: 3000;
 }

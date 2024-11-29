@@ -339,8 +339,9 @@ const UpdateMerchandise = () => {
                 <label className={styles.inputLabel}>Valor Total:</label>
                 <input
                   type="text"
+                  placeholder="Valor Total"
                   value={totalValue}
-                  className={styles.input}
+                  className={styles.inputValorTotal}
                   disabled
                 />
               </form>
