@@ -1,10 +1,10 @@
 ## Hardware Stote Inventory - FFIG
-Este proyecto hace parte de la Evidencia: Diseño front-end que cumpla con los requerimientos del proyecto GA6-220501096-AA4-EV03.
+Este desarrollo hace parte de la Evidencia: Diseño front-end que cumpla con los requerimientos del proyecto GA6-220501096-AA4-EV03.
 
-Este proyecto permite la gestión de inventario para una ferretería, implementando el módulo de registro de inventario.
+El proyecto permite la gestión de inventario para una ferretería, implementando el módulo de registro de mercancia.
 
 # React + Vite
-Este proyecto se centra en el módulo de registro de inventario para una ferretería. Para ello, se utiliza el framework React, que facilita la creación de componentes reutilizables, junto con Vite, una herramienta de compilación que proporciona una experiencia de desarrollo más rápida y ágil para proyectos web modernos. Además, se emplean tecnologías de desarrollo web como JavaScript, HTML y CSS3.
+Para la construcción de está aplicación web, se utiliza el framework React, que facilita la creación de componentes reutilizables, junto con Vite, una herramienta de compilación que proporciona una experiencia de desarrollo más rápida y ágil para proyectos web modernos. Además, se emplean tecnologías de desarrollo web como JavaScript, HTML y CSS3.
 
 ## Instalación
 
