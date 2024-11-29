@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Header from './Header';
-import styles from '../styles/deletemerchandise.module.css';
+import styles from '../styles/merchandisequery.module.css';
 import CleaningServicesIcon from '@mui/icons-material/CleaningServices';
 import SearchIcon from '@mui/icons-material/Search';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
@@ -12,8 +12,8 @@ const loadProducts = () => JSON.parse(localStorage.getItem('products')) || [];
 // Función para cargar proveedores desde localStorage
 const loadSuppliers = () => JSON.parse(localStorage.getItem('suppliers')) || [];
 
-const MerchandiseQuery = () => {
-  const [activeTab, setActiveTab] = useState('consulta');
+const DeleteMerchandise = () => {
+  const [activeTab, setActiveTab] = useState('eliminar');
   const [data, setData] = useState([]); // Almacena los datos combinados y filtrados
   const [filters, setFilters] = useState({
     codigo: '',
@@ -329,8 +329,7 @@ const MerchandiseQuery = () => {
       {/* Contenido dependiendo de la pestaña activa */}
       <div className={styles.container}>
         <h2 className={styles.title}>
-          Ingrese un dato en la casilla correspondiente para realizar la
-          consulta
+          Seleccione la fila que contiene el registro que desea eliminar
         </h2>
       </div>
 
@@ -358,10 +357,8 @@ const MerchandiseQuery = () => {
               <input
                 type="text"
                 name="categoria"
-                value={filters.categoria} // Vincula el valor con el estado de los filtros
-                onChange={handleInputChange}
-                placeholder="Buscar"
-                style={{ fontStyle: 'italic' }} // Esto aplica directamente el estilo en línea
+                value={disabledInputs.existencias}
+                disabled
               />
             </th>
             <th>
@@ -369,10 +366,8 @@ const MerchandiseQuery = () => {
               <input
                 type="text"
                 name="nombre"
-                value={filters.nombre} // Vincula el valor con el estado de los filtros
-                onChange={handleInputChange}
-                placeholder="Buscar"
-                style={{ fontStyle: 'italic' }} // Esto aplica directamente el estilo en línea
+                value={disabledInputs.existencias}
+                disabled
               />
             </th>
             <th>
@@ -618,4 +613,4 @@ const MerchandiseQuery = () => {
   );
 };
 
-export default MerchandiseQuery;
+export default DeleteMerchandise;
