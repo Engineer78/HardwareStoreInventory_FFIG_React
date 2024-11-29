@@ -1,10 +1,11 @@
+
 import { useState, useEffect } from 'react';
 import Header from './Header';
 import styles from '../styles/merchandisequery.module.css';
+import { Link } from 'react-router-dom';
 import CleaningServicesIcon from '@mui/icons-material/CleaningServices';
 import SearchIcon from '@mui/icons-material/Search';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import { Link } from 'react-router-dom';
 
 // Función para cargar productos desde localStorage
 const loadProducts = () => JSON.parse(localStorage.getItem('products')) || [];
@@ -62,20 +63,18 @@ const MerchandiseQuery = () => {
   }, []);
 
   // Controlar cuántos elementos se muestran y si se está cargando más información.
-  const [visibleItems, setVisibleItems] = useState(6); // Número de productos visibles inicialmente
+  const [visibleItems, setVisibleItems] = useState(3); // Número de productos visibles inicialmente
   const [isLoadingMore, setIsLoadingMore] = useState(false); // Para saber si se está cargando más productos
 
   const handleLoadMore = () => {
     if (!isLoadingMore) {
       // Evita que el usuario haga clic múltiples veces si ya se están cargando más datos
       setIsLoadingMore(true);
-      setVisibleItems((prevVisibleItems) => prevVisibleItems + 20); // Aumenta el número de productos visibles
+      setVisibleItems((prevVisibleItems) => prevVisibleItems + 5); // Aumenta el número de productos visibles
     }
   };
 
   useEffect(() => {
-    console.log('Filtros actuales:', filters); // Verifica los filtros activos
-
     const products = loadProducts();
     const suppliers = loadSuppliers();
 
@@ -95,47 +94,28 @@ const MerchandiseQuery = () => {
     );
 
     // Si hay filtros activos, aplicamos el filtro
-    const filteredData = combinedData.filter((item) => {
-      const matchesCode =
-        filters.codigo === '' ||
-        item.code.toLowerCase().includes(filters.codigo.toLowerCase());
-      const matchesCategory =
-        filters.categoria === '' ||
-        item.category.toLowerCase().includes(filters.categoria.toLowerCase());
-      const matchesName =
-        filters.nombre === '' ||
-        item.name.toLowerCase().includes(filters.nombre.toLowerCase());
-      const matchesNIT =
-        filters.nit === '' ||
-        item.supplierNIT.toLowerCase().includes(filters.nit.toLowerCase());
-      const matchesSupplier =
-        filters.proveedor === '' ||
-        item.supplierName
-          .toLowerCase()
-          .includes(filters.proveedor.toLowerCase());
-      const matchesQuantity =
-        filters.existencia === '' ||
-        item.quantity.toString().includes(filters.existencia);
-      const matchesUnitValue =
-        filters.valorUnitario === '' ||
-        item.unitValue.toString().includes(filters.valorUnitario);
-      const matchesTotalValue =
-        filters.valorTotal === '' ||
-        item.totalValue.toString().includes(filters.valorTotal);
-
-      return (
-        matchesCode &&
-        matchesCategory &&
-        matchesName &&
-        matchesNIT &&
-        matchesSupplier &&
-        matchesQuantity &&
-        matchesUnitValue &&
-        matchesTotalValue
-      );
-    });
-
-    // console.log('Datos después de aplicar filtros:', filteredData); // Verifica los datos después del filtro
+    const filteredData = hasActiveFilters
+      ? combinedData.filter(
+          (item) =>
+            item.code.toLowerCase().includes(filters.codigo.toLowerCase()) &&
+            item.category
+              .toLowerCase()
+              .includes(filters.categoria.toLowerCase()) &&
+            item.name.toLowerCase().includes(filters.nombre.toLowerCase()) &&
+            item.supplierNIT
+              .toLowerCase()
+              .includes(filters.nit.toLowerCase()) &&
+            item.supplierName
+              .toLowerCase()
+              .includes(filters.proveedor.toLowerCase()) &&
+            (item.quantity.toString().includes(filters.existencia) ||
+              filters.existencia === '') &&
+            (item.unitValue.toString().includes(filters.valorUnitario) ||
+              filters.valorUnitario === '') &&
+            (item.totalValue.toString().includes(filters.valorTotal) ||
+              filters.valorTotal === ''),
+        )
+      : []; // Si no hay filtros, no mostramos nada
 
     // Limita la cantidad de productos visibles según el estado visibleItems
     const itemsToShow = filteredData.slice(0, visibleItems); // Muestra solo los primeros "visibleItems"
@@ -241,37 +221,11 @@ const MerchandiseQuery = () => {
       valorUnitario: '',
       valorTotal: '',
     }); // Limpia los filtros
-  
-    setDisabledInputs({
-      existencias: '',
-      valorUnitario: '',
-      valorTotal: '',
-      proveedor: '',
-      nitProveedor: '',
-    }); // Limpia los campos deshabilitados
-  
-    setData([]); // Oculta las celdas vaciando la tabla
-    setIsSearching(false); // Asegura que no se está en estado de búsqueda
-  };  
+  };
 
-  // Este useEffect se ejecuta cuando cambian isSearching, data o visibleItems
-  useEffect(() => {
-    // console.log('isSearching:', isSearching);
-    // console.log('data.length:', data.length);
-    // console.log('visibleItems:', visibleItems);
-    // console.log('Mostrar botón:', isSearching && data.length > visibleItems);
-  }, [isSearching, data, visibleItems]);
-
-  // Otro useEffect ya existente en tu código
-  // useEffect(() => {
-  //   console.log('Datos iniciales:', data);
-  //   console.log('Estado inicial de isSearching:', isSearching);
-  // }, []);
-
-  // useEffect(() => {
-  //   console.log('Contenido actual del localStorage:', localStorage.getItem('products'));
-  //   console.log('Contenido actual del localStorage:', localStorage.getItem('suppliers'));
-  // }, []);
+  console.log('Total de productos:', data.length);
+  console.log('Productos visibles:', visibleItems);  
+  console.log("Is loading more:", isLoadingMore);
 
   return (
     <div className={styles.scrollContainer}>
@@ -296,7 +250,7 @@ const MerchandiseQuery = () => {
         </Link>
 
         <Link
-          to="/merchandise-query"
+          to="/inventory-registration"
           className={`${styles.tabButton} ${
             activeTab === 'consulta' ? styles.active : ''
           }`}
@@ -306,7 +260,7 @@ const MerchandiseQuery = () => {
         </Link>
 
         <Link
-          to="/update-merchandise"
+          to="/inventory-registration"
           className={`${styles.tabButton} ${
             activeTab === 'actualizar' ? styles.active : ''
           }`}
@@ -316,7 +270,7 @@ const MerchandiseQuery = () => {
         </Link>
 
         <Link
-          to="/delete-merchandise"
+          to="/inventory-registration"
           className={`${styles.tabButton} ${
             activeTab === 'eliminar' ? styles.active : ''
           }`}
@@ -325,15 +279,14 @@ const MerchandiseQuery = () => {
           Eliminar Mercancía
         </Link>
       </div>
-      
       {/* Contenido dependiendo de la pestaña activa */}
       <div className={styles.container}>
         <h2 className={styles.title}>
           Ingrese un dato en la casilla correspondiente para realizar la
           consulta
         </h2>
-      </div>
-
+      </div> 
+      
       {/* Tabla de consulta de mercancía */}
       <table className={styles.table}>
         <thead>
@@ -462,9 +415,9 @@ const MerchandiseQuery = () => {
           )}
         </tbody>
       </table>
-
+           
       {/* Botón "Cargar más" */}
-      {isSearching && data.length > visibleItems && (
+      {data.length > visibleItems && !isLoadingMore && (
         <div className={styles['load-more-container']}>
           <button
             className={styles['load-more-button']}
@@ -511,6 +464,7 @@ const MerchandiseQuery = () => {
         <div
           className={styles['advanced-search-modal']}
           onClick={closeAdvancedSearchModal}
+
         >
           <div
             className={styles['modalContent-advance']}
@@ -526,7 +480,7 @@ const MerchandiseQuery = () => {
               >
                 Limpiar <CleaningServicesIcon style={{ marginLeft: 8 }} />
               </button>
-              {/*Botón para cerrar la ventana modal Búsqueda avanzada*/}
+              {/*Botón para cerrar la ventana modal Búsqueda avanzada*/} 
               <button
                 onClick={closeAdvancedSearchModal}
                 className={styles['close-button']}
