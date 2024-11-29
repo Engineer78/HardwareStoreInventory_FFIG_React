@@ -339,7 +339,7 @@ const InventoryRegistration = () => {
                   id="fileInput"
                 />
                 <label htmlFor="fileInput" className={styles.customFileInput}>
-                  Cargar Imagen <UploadFileIcon style={{ marginLeft: 5 }} />
+                  Cargar Imagen <UploadFileIcon  />
                 </label>
               </div>
             </form>
@@ -347,10 +347,10 @@ const InventoryRegistration = () => {
 
           <div className={styles.buttons}>
             <button type="button" onClick={handleSave} className={styles.button}>
-              Guardar <SaveIcon style={{ marginLeft: 8 }} />
+              Guardar <SaveIcon  />
             </button>
             <button type="button" onClick={handleClear} className={styles.button}>
-              Limpiar <CleaningServicesIcon style={{ marginLeft: 8 }} />
+              Limpiar <CleaningServicesIcon  />
             </button>
             <button
               type="button"

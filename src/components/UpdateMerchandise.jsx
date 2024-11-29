@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
-import Header from "./Header"; // Importación del componente Header
-import styles from "../styles/updatemerchandise.module.css"; // Importación del CSS
-import SaveIcon from '@mui/icons-material/Save';
-import CleaningServicesIcon from '@mui/icons-material/CleaningServices';
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import UploadFileIcon from '@mui/icons-material/UploadFile'; // Importar el icono de cargar
-import { Link } from 'react-router-dom';
+import Header from "./Header";
+import styles from "../styles/updatemerchandise.module.css";
+import SaveIcon from "@mui/icons-material/Save";
+import CleaningServicesIcon from "@mui/icons-material/CleaningServices";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import SearchIcon from "@mui/icons-material/Search";
+import UploadFileIcon from "@mui/icons-material/UploadFile";
+import { Link } from "react-router-dom";
 
 const UpdateMerchandise = () => {
   const [supplierName, setSupplierName] = useState("");
@@ -17,34 +18,151 @@ const UpdateMerchandise = () => {
   const [productName, setProductName] = useState("");
   const [productQuantity, setProductQuantity] = useState("");
   const [unitValue, setUnitValue] = useState("");
-  const [totalValue, setTotalValue] = useState(""); // Total Value State
+  const [totalValue, setTotalValue] = useState("");
   const [productImage, setProductImage] = useState(null);
-  const [activeTab, setActiveTab] = useState("registro"); // Estado para la pestaña activa
+  const [productImageUrl, setProductImageUrl] = useState("");
+  const [originalProductIndex, setOriginalProductIndex] = useState(-1);
+  const [activeTab, setActiveTab] = useState('actualizar');
 
-  // Manejar el cambio de pestaña activa
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
 
-  // Calcular el valor total automáticamente
   useEffect(() => {
     if (productQuantity && unitValue) {
       const total = parseFloat(productQuantity) * parseFloat(unitValue);
-      setTotalValue(total.toFixed(2)); // Ajustamos a dos decimales
+      setTotalValue(total.toFixed(2));
     }
-  }, [productQuantity, unitValue]); // Se ejecuta cuando cambian la cantidad o el valor unitario
+  }, [productQuantity, unitValue]);
 
-  // Función para cargar los proveedores desde localStorage
-  const loadSuppliers = () => {
-    return JSON.parse(localStorage.getItem("suppliers")) || [];
+  const loadSuppliers = () => JSON.parse(localStorage.getItem("suppliers")) || [];
+  const loadProducts = () => JSON.parse(localStorage.getItem("products")) || [];
+
+  const handleSearch = () => {
+    const products = loadProducts();
+    const suppliers = loadSuppliers();
+
+    const trimmedProductCode = productCode.trim();
+
+    let product = null;
+    let supplier = null;
+
+    if (trimmedProductCode) {
+      product = products.find((prod, index) => {
+        const found = prod.code.toLowerCase() === trimmedProductCode.toLowerCase();
+        if (found) setOriginalProductIndex(index);
+        return found;
+      });
+      if (product) {
+        supplier = suppliers.find((sup) => sup.id === product.supplierId);
+      }
+    } else {
+      alert("Por favor, ingrese el Código del Producto para buscar.");
+      return;
+    }
+
+    if (product && supplier) {
+      setSupplierName(supplier.name || "");
+      setSupplierNIT(supplier.nit || "");
+      setSupplierPhone(supplier.phone || "");
+      setSupplierAddress(supplier.address || "");
+      setProductCategory(product.category || "");
+      setProductName(product.name || "");
+      setProductQuantity(product.quantity || "");
+      setUnitValue(product.unitValue || "");
+      setProductImageUrl(product.image || "");
+
+      alert("Datos encontrados. Puede actualizarlos ahora.");
+    } else {
+      alert("No se encontraron datos para el Código del Producto proporcionado.");
+      setOriginalProductIndex(-1);
+    }
+  };
+  const handleSave = () => {
+    if (!validateFields()) {
+      alert("Por favor, complete todos los campos obligatorios.");
+      return;
+    }
+
+    const products = loadProducts();
+    const suppliers = loadSuppliers();
+
+    if (originalProductIndex === -1) {
+      alert("No se encontró el producto para actualizar. Realice una búsqueda primero.");
+      return;
+    }
+
+    let supplierIndex = suppliers.findIndex((sup) => sup.nit === supplierNIT);
+    let supplier = suppliers[supplierIndex];
+
+    if (!supplier) {
+      supplier = {
+        id: Date.now(),
+        name: supplierName,
+        nit: supplierNIT,
+        phone: supplierPhone,
+        address: supplierAddress,
+      };
+      suppliers.push(supplier);
+    } else {
+      suppliers[supplierIndex] = {
+        ...supplier,
+        name: supplierName,
+        phone: supplierPhone,
+        address: supplierAddress,
+        nit: supplierNIT,
+      };
+    }
+
+    // Manejo de la imagen, convertirla a base64 si está presente
+    let productImageBase64 = productImageUrl;
+    if (productImage) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        productImageBase64 = reader.result;
+
+        const updatedProduct = {
+          ...products[originalProductIndex],
+          supplierId: supplier.id,
+          category: productCategory,
+          code: productCode,
+          name: productName,
+          quantity: productQuantity,
+          unitValue,
+          totalValue: productQuantity * unitValue,
+          image: productImageBase64,
+        };
+
+        products[originalProductIndex] = updatedProduct;
+        localStorage.setItem("suppliers", JSON.stringify(suppliers));
+        localStorage.setItem("products", JSON.stringify(products));
+
+        alert("Producto y proveedor actualizados exitosamente.");
+        handleClear();
+      };
+      reader.readAsDataURL(productImage);
+    } else {
+      const updatedProduct = {
+        ...products[originalProductIndex],
+        supplierId: supplier.id,
+        category: productCategory,
+        code: productCode,
+        name: productName,
+        quantity: productQuantity,
+        unitValue,
+        totalValue: productQuantity * unitValue,
+        image: productImageBase64,
+      };
+
+      products[originalProductIndex] = updatedProduct;
+      localStorage.setItem("suppliers", JSON.stringify(suppliers));
+      localStorage.setItem("products", JSON.stringify(products));
+
+      alert("Producto y proveedor actualizados exitosamente.");
+      handleClear();
+    }
   };
 
-  // Función para cargar los productos desde localStorage
-  const loadProducts = () => {
-    return JSON.parse(localStorage.getItem("products")) || [];
-  };
-
-  // Función para validar si los campos están vacíos
   const validateFields = () => {
     return (
       supplierName &&
@@ -59,94 +177,6 @@ const UpdateMerchandise = () => {
     );
   };
 
-  // Función para guardar los datos en localStorage, con control de duplicidad
-  const handleSave = () => {
-    if (!validateFields()) {
-      alert("Por favor, complete todos los campos obligatorios.");
-      return; // No proceder si hay campos vacíos
-    }
-
-    const suppliers = loadSuppliers(); // Cargar lista de proveedores
-    const products = loadProducts(); // Cargar lista de productos
-
-    // Verificar si el proveedor ya existe
-    const existingSupplier = suppliers.find((sup) => sup.nit === supplierNIT);
-    let supplierId = null;
-
-    if (existingSupplier) {
-      supplierId = existingSupplier.id; // Si existe, se usa el ID del proveedor existente
-    } else {
-      // Si no existe, se crea un nuevo proveedor
-      supplierId = Date.now();
-      suppliers.push({
-        id: supplierId,
-        name: supplierName,
-        nit: supplierNIT,
-        phone: supplierPhone,
-        address: supplierAddress,
-      });
-      localStorage.setItem("suppliers", JSON.stringify(suppliers)); // Guardar los proveedores actualizados
-    }
-
-    // Verificar si el código del producto ya existe para este proveedor
-    const existingProduct = products.find(
-      (prod) => prod.code === productCode && prod.supplierId === supplierId
-    );
-
-    if (existingProduct) {
-      alert("El código del producto ya existe para este proveedor.");
-      return;
-    }
-
-    // Manejo de la imagen, convertirla a base64 si está presente
-    let productImageBase64 = null;
-    if (productImage) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        productImageBase64 = reader.result; // Obtenemos la imagen como base64
-
-        // Crear un nuevo producto con la imagen convertida a base64
-        const newProduct = {
-          id: Date.now(),
-          supplierId,
-          category: productCategory,
-          code: productCode,
-          name: productName,
-          quantity: productQuantity,
-          unitValue,
-          totalValue,
-          image: productImageBase64, // Guardar imagen en base64
-        };
-
-        // Guardar el nuevo producto en el localStorage
-        products.push(newProduct);
-        localStorage.setItem("products", JSON.stringify(products)); // Guardar los productos actualizados
-        alert("Producto registrado exitosamente.");
-        handleClear(); // Limpiar formulario después de guardar
-      };
-      reader.readAsDataURL(productImage); // Convertimos la imagen a base64
-    } else {
-      // Si no hay imagen, solo guardamos el producto sin imagen
-      const newProduct = {
-        id: Date.now(),
-        supplierId,
-        category: productCategory,
-        code: productCode,
-        name: productName,
-        quantity: productQuantity,
-        unitValue,
-        totalValue,
-        image: null, // No hay imagen
-      };
-
-      products.push(newProduct);
-      localStorage.setItem("products", JSON.stringify(products)); // Guardar los productos actualizados
-      alert("Producto registrado exitosamente.");
-      handleClear(); // Limpiar formulario después de guardar
-    }
-  };
-
-  // Función para limpiar el formulario
   const handleClear = () => {
     setSupplierName("");
     setSupplierNIT("");
@@ -157,14 +187,14 @@ const UpdateMerchandise = () => {
     setProductName("");
     setProductQuantity("");
     setUnitValue("");
-    setTotalValue(""); // Limpiar el valor total
+    setTotalValue("");
     setProductImage(null);
+    setProductImageUrl("");
   };
 
   useEffect(() => {
-    setActiveTab("actualizar"); // Asegurarse de que la pestaña de actualizar esté activa al cargar
+    setActiveTab('actualizar');
   }, []);
-
   return (
     <>
       <Header
@@ -174,7 +204,6 @@ const UpdateMerchandise = () => {
         showHelp={true}
       />
 
-      {/* Pestañas debajo del header */}
       <div className={styles.tabs}>
         <Link
           to="/inventory-registration"
@@ -209,26 +238,15 @@ const UpdateMerchandise = () => {
         </Link>
       </div>
 
-      {/* Contenido dependiendo de la pestaña activa */}
       {activeTab === "actualizar" && (
         <div className={styles.container}>
           <h2 className={styles.title}>
-            Ingrese NIT o Código para buscar y actualizar el registro
+            Ingrese el Código del Producto para buscar y actualizar el registro
           </h2>
 
           <div className={styles.formContainer}>
             <form className={styles.formLeft}>
-            <label className={styles.inputLabel}>NIT:</label>
-              <input
-                type="text"
-                placeholder="NIT (Obligatorio)"
-                value={supplierNIT}
-                onChange={(e) => setSupplierNIT(e.target.value)}
-                required
-                className={styles.input}
-              />
-
-<label className={styles.inputLabel}>Crear código del producto:</label>
+              <label className={styles.inputLabel}>Código del Producto:</label>
               <input
                 type="text"
                 placeholder="Código del producto (Obligatorio)"
@@ -236,134 +254,148 @@ const UpdateMerchandise = () => {
                 onChange={(e) => setProductCode(e.target.value)}
                 required
                 className={styles.input}
-              />     
-              
+              />
+
+              <button
+                type="button"
+                onClick={handleSearch}
+                className={styles.searchButton}
+              >
+                Buscar <SearchIcon style={{ marginLeft: 5 }} />
+              </button>
+
               <label className={styles.inputLabel}>Nombre del Proveedor:</label>
               <input
                 type="text"
-                placeholder="Nombre del Proveedor (Obligatorio)"
+                placeholder="Nombre del Proveedor"
                 value={supplierName}
                 onChange={(e) => setSupplierName(e.target.value)}
-                required
                 className={styles.input}
-              />
-              
-              <label className={styles.inputLabel}>Teléfono:</label>
-              <input
-                type="text"
-                placeholder="Teléfono (Obligatorio)"
-                value={supplierPhone}
-                onChange={(e) => setSupplierPhone(e.target.value)}
-                required
-                className={styles.input}
-              />
-
-              <label className={styles.inputLabel}>Dirección:</label>
-              <input
-                type="text"
-                placeholder="Dirección (Obligatorio)"
-                value={supplierAddress}
-                onChange={(e) => setSupplierAddress(e.target.value)}
-                required
-                className={styles.input}
-              />
-
-              <label className={styles.inputLabel}>Categoría de la mercancía:</label>
-              <input
-                type="text"
-                placeholder="Categoría de la mercancía (Obligatorio)"
-                value={productCategory}
-                onChange={(e) => setProductCategory(e.target.value)}
-                required
-                className={styles.input}
-              />
-
-              <label className={styles.inputLabel}>Nombre del Producto:</label>
-              <input
-                type="text"
-                placeholder="Nombre del Producto (Obligatorio)"
-                value={productName}
-                onChange={(e) => setProductName(e.target.value)}
-                required
-                className={styles.input}
-              />
-
-              <label className={styles.inputLabel}>Cantidad:</label>
-              <input
-                type="number"
-                placeholder="Cantidad (Obligatorio)"
-                value={productQuantity}
-                onChange={(e) => setProductQuantity(e.target.value)}
-                required
-                className={styles.input}
-              />
-
-              <label className={styles.inputLabel}>Valor Unitario:</label>
-              <input
-                type="number"
-                placeholder="Valor Unitario (Obligatorio)"
-                value={unitValue}
-                onChange={(e) => setUnitValue(e.target.value)}
-                required
-                className={styles.input}
-              />
-
-              <label className={styles.inputLabel}>Valor total:</label>
-              <input
-                type="number"
-                placeholder="Valor total"
-                value={totalValue}
-                disabled
-                className={styles.inputValorTotal}
-              />
-            </form>
-
-            <form className={styles.formRight}>
-              <label id="productImageLabel" className={styles.imageLabel}>
-                Imagen del producto
-              </label>
-              <div className={styles.imageWrapper}>
-                <img
-                  src={
-                    productImage
-                      ? URL.createObjectURL(productImage)
-                      : "https://via.placeholder.com/300x400/B8B323/000000"
-                  }
-                  alt="Vista previa"
-                  className={styles.image}
                 />
+  
+                <label className={styles.inputLabel}>NIT:</label>
                 <input
-                  type="file"
-                  onChange={(e) => setProductImage(e.target.files[0])}
-                  className={styles.fileInput}
-                  id="fileInput"
+                  type="text"
+                  placeholder="NIT"
+                  value={supplierNIT}
+                  onChange={(e) => setSupplierNIT(e.target.value)}
+                  className={styles.input}
                 />
-                <label htmlFor="fileInput" className={styles.customFileInput}>
-                  Cargar Imagen <UploadFileIcon style={{ marginLeft: 5 }} />
+  
+                <label className={styles.inputLabel}>Teléfono:</label>
+                <input
+                  type="text"
+                  placeholder="Teléfono"
+                  value={supplierPhone}
+                  onChange={(e) => setSupplierPhone(e.target.value)}
+                  className={styles.input}
+                />
+  
+                <label className={styles.inputLabel}>Dirección:</label>
+                <input
+                  type="text"
+                  placeholder="Dirección"
+                  value={supplierAddress}
+                  onChange={(e) => setSupplierAddress(e.target.value)}
+                  className={styles.input}
+                />
+  
+                <label className={styles.inputLabel}>Categoría:</label>
+                <input
+                  type="text"
+                  placeholder="Categoría"
+                  value={productCategory}
+                  onChange={(e) => setProductCategory(e.target.value)}
+                  className={styles.input}
+                />
+  
+                <label className={styles.inputLabel}>Nombre del Producto:</label>
+                <input
+                  type="text"
+                  placeholder="Nombre del Producto"
+                  value={productName}
+                  onChange={(e) => setProductName(e.target.value)}
+                  className={styles.input}
+                />
+  
+                <label className={styles.inputLabel}>Cantidad:</label>
+                <input
+                  type="number"
+                  placeholder="Cantidad"
+                  value={productQuantity}
+                  onChange={(e) => setProductQuantity(e.target.value)}
+                  className={styles.input}
+                />
+  
+                <label className={styles.inputLabel}>Valor Unitario:</label>
+                <input
+                  type="number"
+                  placeholder="Valor Unitario"
+                  value={unitValue}
+                  onChange={(e) => setUnitValue(e.target.value)}
+                  className={styles.input}
+                />
+  
+                <label className={styles.inputLabel}>Valor Total:</label>
+                <input
+                  type="text"
+                  value={totalValue}
+                  className={styles.input}
+                  disabled
+                />
+              </form>
+  
+              <form className={styles.formRight}>
+                <label id="productImageLabel" className={styles.imageLabel}>
+                  Imagen del Producto
                 </label>
-              </div>
-            </form>
+                <div className={styles.imageWrapper}>
+                  <img
+                    src={productImageUrl || "https://via.placeholder.com/300x400/B8B323/000000"}
+                    alt="Vista previa"
+                    className={styles.image}
+                  />
+                  <input
+                    type="file"
+                    onChange={(e) => {
+                      const file = e.target.files[0];
+                      setProductImage(file);
+                      if (file) {
+                        const reader = new FileReader();
+                        reader.onloadend = () => {
+                          setProductImageUrl(reader.result);
+                        };
+                        reader.readAsDataURL(file);
+                      }
+                    }}
+                    className={styles.fileInput}
+                    id="fileInput"
+                  />
+                  <label htmlFor="fileInput" className={styles.customFileInput}>
+                    Cargar Imagen <UploadFileIcon style={{ marginLeft: 5 }} />
+                  </label>
+                </div>
+              </form>
+            </div>
+  
+            <div className={styles.actionButtons}>
+              <button className={styles.saveButton} onClick={handleSave}>
+                Guardar <SaveIcon />
+              </button>
+              <button className={styles.clearButton} onClick={handleClear}>
+                Limpiar <CleaningServicesIcon />
+              </button>
+              <Link to="/" className={styles.exitButton}>
+                Salir <ExitToAppIcon />
+              </Link>
+            </div>
           </div>
+        )}
+      </>
+    );
+  };
+  
+  export default UpdateMerchandise;
+  
 
-          <div className={styles.buttons}>
-            <button type="button" onClick={handleSave} className={styles.button}>
-              Guardar <SaveIcon style={{ marginLeft: 8 }} />
-            </button>
-            <button type="button" onClick={handleClear} className={styles.button}>
-              Limpiar <CleaningServicesIcon style={{ marginLeft: 8 }} />
-            </button>
-            <button
-              type="button"
-              onClick={() => (window.location.href = "/menu-principal")}
-              className={styles.button}
-            >
-              Salir <ExitToAppIcon style={{ marginLeft: 8 }} />
-            </button>
-          </div>
-        </div>
-      )}
-    </>
-  );
-};
 
-export default UpdateMerchandise;

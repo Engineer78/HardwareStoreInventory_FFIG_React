@@ -325,6 +325,7 @@ const MerchandiseQuery = () => {
           Eliminar Mercancía
         </Link>
       </div>
+      
       {/* Contenido dependiendo de la pestaña activa */}
       <div className={styles.container}>
         <h2 className={styles.title}>

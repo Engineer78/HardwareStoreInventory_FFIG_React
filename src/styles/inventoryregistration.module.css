@@ -248,7 +248,7 @@ body {
   justify-content: center;
   padding: 8px 15px;
   text-align: center;
-  width: 120px;
+  min-width: 120px;
 }
 
 /* Estilos para el botón de Guardar */
@@ -291,6 +291,7 @@ body {
 /* Estilos para el botón de Salir */
 .button:nth-child(3) {
   background-color: #565557; /* Color principal */
+  font-size: 1rem;
 }
 
 .button:nth-child(3):focus {
