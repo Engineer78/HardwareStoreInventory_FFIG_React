@@ -46,7 +46,7 @@ const DeleteMerchandise = () => {
     const [selectedItems, setSelectedItems] = useState([]);
 
     // Controlar cuántos elementos se muestran y si se está cargando más información.
-    const [visibleItems, setVisibleItems] = useState(3); // Número de productos visibles inicialmente
+    const [visibleItems, setVisibleItems] = useState(10); // Número de productos visibles inicialmente
     const [isLoadingMore, setIsLoadingMore] = useState(false); // Para saber si se está cargando más productos
 
     const handleTabClick = (tab) => {
@@ -98,7 +98,7 @@ const DeleteMerchandise = () => {
     const handleLoadMore = () => {
         if (!isLoadingMore) {
             setIsLoadingMore(true);
-            setVisibleItems((prevVisibleItems) => prevVisibleItems + 5);
+            setVisibleItems((prevVisibleItems) => prevVisibleItems + 30);
             setIsLoadingMore(false); // Esto puede ser manejado con un setTimeout para simular la carga de datos.
         }
     };
@@ -485,7 +485,7 @@ const DeleteMerchandise = () => {
                                 onClick={closeDeleteConfirmationModal}
                                 className={styles['close-button']}
                             >
-                                Cancelar 
+                                Cancelar X
                             </button>
                         </div>
                     </div>

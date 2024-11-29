@@ -63,14 +63,14 @@ const MerchandiseQuery = () => {
   }, []);
 
   // Controlar cuántos elementos se muestran y si se está cargando más información.
-  const [visibleItems, setVisibleItems] = useState(3); // Número de productos visibles inicialmente
+  const [visibleItems, setVisibleItems] = useState(10); // Número de productos visibles inicialmente
   const [isLoadingMore, setIsLoadingMore] = useState(false); // Para saber si se está cargando más productos
 
   const handleLoadMore = () => {
     if (!isLoadingMore) {
       // Evita que el usuario haga clic múltiples veces si ya se están cargando más datos
       setIsLoadingMore(true);
-      setVisibleItems((prevVisibleItems) => prevVisibleItems + 5); // Aumenta el número de productos visibles
+      setVisibleItems((prevVisibleItems) => prevVisibleItems + 30); // Aumenta el número de productos visibles
     }
   };
 
@@ -454,7 +454,7 @@ const MerchandiseQuery = () => {
               <p>Imagen no disponible</p>
             )}
             <button className={styles.closeButton} onClick={closeModal}>
-              X
+              Cerrar X 
             </button>
           </div>
         </div>

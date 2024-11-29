@@ -339,9 +339,8 @@ const UpdateMerchandise = () => {
                 <label className={styles.inputLabel}>Valor Total:</label>
                 <input
                   type="text"
-                  placeholder="Valor Total"
                   value={totalValue}
-                  className={styles.inputValorTotal}
+                  className={styles.input}
                   disabled
                 />
               </form>
@@ -386,9 +385,11 @@ const UpdateMerchandise = () => {
               <button className={styles.clearButton} onClick={handleClear}>
                 Limpiar <CleaningServicesIcon />
               </button>
-              <Link to="/" className={styles.exitButton}>
-                Salir <ExitToAppIcon  />
-              </Link>
+              <button 
+                type="button" 
+                onClick={() => (window.location.href = "/menu-principal")} 
+                className={styles.exitButton} > 
+                Salir <ExitToAppIcon /> </button>
             </div>
           </div>
         )}

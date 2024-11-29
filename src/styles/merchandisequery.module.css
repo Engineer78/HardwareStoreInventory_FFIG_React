@@ -450,6 +450,7 @@ tbody td input {
   cursor: pointer;          /* Muestra el cursor como puntero */
   transition: background-color 0.3s ease; /* Transición suave al pasar el mouse */
   display: inline-block;
+  /* z-index: 3600; */
 }
 
 /* Efecto de hover para el botón Cargar más*/
