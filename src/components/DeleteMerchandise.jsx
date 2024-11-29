@@ -455,7 +455,7 @@ const DeleteMerchandise = () => {
                             <p>Imagen no disponible</p>
                         )}
                         <button className={styles.closeButton} onClick={closeModal}>
-                            X
+                            Cerrar X
                         </button>
                     </div>
                 </div>
@@ -496,7 +496,7 @@ const DeleteMerchandise = () => {
                 <button
                     type="button"
                     onClick={openDeleteConfirmationModal} // Abre el modal de confirmación de eliminación
-                    className={styles.button}
+                    className={styles.buttonEliminar}
                 >
                     Eliminar <DeleteOutlineIcon style={{ marginLeft: 8 }} />
                 </button>
