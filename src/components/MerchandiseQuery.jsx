@@ -223,9 +223,9 @@ const MerchandiseQuery = () => {
     }); // Limpia los filtros
   };
 
-  console.log('Total de productos:', data.length);
-  console.log('Productos visibles:', visibleItems);  
-  console.log("Is loading more:", isLoadingMore);
+  // console.log('Total de productos:', data.length);
+  // console.log('Productos visibles:', visibleItems);  
+  // console.log("Is loading more:", isLoadingMore);
 
   return (
     <div className={styles.scrollContainer}>
