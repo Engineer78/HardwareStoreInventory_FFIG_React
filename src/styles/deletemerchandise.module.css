@@ -366,7 +366,7 @@ body {
     margin-top: 330px;
     z-index: 3000;
   }
-  
+
   /* Estilos generales para los botones */
   .button {
     align-items: center;
@@ -463,3 +463,67 @@ body {
     cursor: not-allowed;       /* Cursor de "no permitido" */
   }
   
+  /* configracion general modal eliminar registros */
+  .delete-confirmation-modal{
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px; /* Ancho fijo para el modal */
+    height: 520px;
+    max-width: 90%;
+    /* overflow-y: auto; */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+  }
+
+  /* Controles de los botones dentro del modal */
+  .advanced-search-modal-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .modalContent-delete{
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px; /* Ancho fijo para el modal */
+    height: 520px;
+    max-width: 90%;
+    overflow-y: auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+  }
+
+  /* Estilo para los encabezados dentro del modal */
+  .modalContent-delete h3 {
+    margin-top: 45px !important;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 1.5rem;
+    color: #333;
+  }
+
+  .modalContent-delete p {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #333;
+  }
+
+  .delete-button{
+    align-items: center;
+    background-color: #565557;
+    color: white;
+    display: flex;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 15px;
+    cursor: pointer;
+    margin-left: 120px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    width: 110px;
+    justify-content: center;
+  }
+
+ 
