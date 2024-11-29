@@ -230,7 +230,7 @@ const UpdateMerchandise = () => {
         </Link>
 
         <Link
-          to="/eliminar"
+          to="/delete-merchandise"
           className={`${styles.tabButton} ${activeTab === "eliminar" ? styles.active : ""}`}
           onClick={() => handleTabClick("eliminar")}
         >

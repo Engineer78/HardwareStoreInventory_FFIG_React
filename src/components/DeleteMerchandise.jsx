@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Header from './Header';
-import styles from '../styles/merchandisequery.module.css';
+import styles from '../styles/deletemerchandise.module.css';
 import CleaningServicesIcon from '@mui/icons-material/CleaningServices';
 import SearchIcon from '@mui/icons-material/Search';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
@@ -599,7 +599,7 @@ const MerchandiseQuery = () => {
           onClick={openAdvancedSearchModal} // Abre el modal de búsqueda avanzada
           className={styles.button}
         >
-          Buscar <SearchIcon style={{ marginLeft: 8 }} />
+          Eliminar <SearchIcon style={{ marginLeft: 8 }} />
         </button>
 
         <button type="button" onClick={handleClear} className={styles.button}>
