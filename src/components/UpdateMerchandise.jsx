@@ -387,7 +387,7 @@ const UpdateMerchandise = () => {
                 Limpiar <CleaningServicesIcon />
               </button>
               <Link to="/" className={styles.exitButton}>
-                Salir <ExitToAppIcon />
+                Salir <ExitToAppIcon  />
               </Link>
             </div>
           </div>
